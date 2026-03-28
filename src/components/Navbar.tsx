@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Moon, Sun, Sparkles } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import logoHeader from "@/assets/logo-header.png";
 
@@ -12,10 +12,17 @@ const navLinks = [
   { href: "#contact", label: "تواصل معنا" },
 ];
 
+const themeIcons = {
+  dark: Moon,
+  editorial: Sun,
+  "editorial-animated": Sparkles,
+} as const;
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
-  const isEditorial = theme === "editorial";
+  const { theme, toggleTheme, isLight } = useTheme();
+
+  const Icon = themeIcons[theme];
 
   return (
     <>
@@ -31,39 +38,42 @@ const Navbar = () => {
               {open ? <X size={22} /> : <Menu size={22} />}
             </button>
 
-            {/* Theme Switcher */}
-            <button
+            {/* Theme Switcher — cycles through 3 themes */}
+            <motion.button
               onClick={toggleTheme}
-              className={`relative w-14 h-7 rounded-full transition-all duration-500 flex items-center ${
-                isEditorial
-                  ? "bg-[#00C17A]/15 border border-[#00C17A]/30"
-                  : "bg-primary/15 border border-primary/30"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.92 }}
+              className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all duration-500 border ${
+                theme === "dark"
+                  ? "bg-primary/10 border-primary/30 text-primary"
+                  : theme === "editorial"
+                    ? "bg-[#00C17A]/10 border-[#00C17A]/30 text-[#00C17A]"
+                    : "bg-gradient-to-r from-[#00C17A]/10 via-[#0072F9]/10 to-[#FFBC0A]/10 border-[#00C17A]/30 text-[#00C17A]"
               }`}
               aria-label="تبديل المظهر"
             >
-              <motion.div
-                layout
-                transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                  isEditorial
-                    ? "mr-auto ml-1 bg-[#00C17A]"
-                    : "ml-auto mr-1 bg-primary"
-                }`}
-              >
-                {isEditorial ? (
-                  <Sun className="w-3 h-3 text-white" />
-                ) : (
-                  <Moon className="w-3 h-3 text-white" />
-                )}
-              </motion.div>
-            </button>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={theme}
+                  initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                  exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <Icon className="w-4 h-4" />
+                </motion.div>
+              </AnimatePresence>
+              <span className="text-[10px] font-bold hidden sm:block">
+                {theme === "dark" ? "داكن" : theme === "editorial" ? "فاتح" : "حيوي"}
+              </span>
+            </motion.button>
           </div>
 
           <a href="#" className="flex-shrink-0 md:mr-0">
             <img
               src={logoHeader}
               alt="لاندسكيب إكس"
-              className={`h-8 md:h-10 w-auto transition-all duration-500 ${isEditorial ? "invert" : ""}`}
+              className={`h-8 md:h-10 w-auto transition-all duration-500 ${isLight ? "invert" : ""}`}
             />
           </a>
 
@@ -73,7 +83,7 @@ const Navbar = () => {
                 key={l.href}
                 href={l.href}
                 className={`hover:text-foreground transition-all duration-300 relative group font-bold ${
-                  isEditorial
+                  isLight
                     ? "text-[#494C6B] hover:drop-shadow-none"
                     : "text-muted-foreground hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.6)]"
                 }`}
@@ -81,7 +91,7 @@ const Navbar = () => {
                 {l.label}
                 <span
                   className={`absolute -bottom-1 right-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${
-                    isEditorial ? "bg-[#00C17A]" : "bg-gradient-brand"
+                    isLight ? "bg-[#00C17A]" : "bg-gradient-brand"
                   }`}
                 />
               </a>

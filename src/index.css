@@ -47,7 +47,8 @@
   }
 
   /* ── Editorial Theme (Thmanyah-inspired) ── */
-  [data-theme="editorial"] {
+  [data-theme="editorial"],
+  [data-theme="editorial-animated"] {
     --background: 36 33% 95%;
     --foreground: 0 0% 0%;
 
@@ -106,7 +107,8 @@
     color: hsl(0 0% 100%);
   }
 
-  [data-theme="editorial"] ::selection {
+  [data-theme="editorial"] ::selection,
+  [data-theme="editorial-animated"] ::selection {
     background: hsl(157 100% 38% / 0.25);
     color: hsl(0 0% 0%);
   }
@@ -265,34 +267,35 @@
 
 /* ════════════════════════════════════════════
    Editorial Theme — Utility Overrides
+   (applies to both editorial and editorial-animated)
    ════════════════════════════════════════════ */
 
-[data-theme="editorial"] .text-gradient {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .text-gradient {
   background-image: linear-gradient(135deg, #000000, #2B2D3F);
 }
 
-[data-theme="editorial"] .text-gradient-warm {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .text-gradient-warm {
   background-image: linear-gradient(135deg, #000000, #494C6B);
 }
 
-[data-theme="editorial"] .bg-gradient-brand {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .bg-gradient-brand {
   background-image: none;
   background-color: #000000;
 }
 
-[data-theme="editorial"] .bg-gradient-hero {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .bg-gradient-hero {
   background-image: none;
   background-color: #F7F4EE;
 }
 
-[data-theme="editorial"] .glass {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .glass {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid hsl(40 14% 89%);
 }
 
-[data-theme="editorial"] .glass-strong {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .glass-strong {
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
@@ -300,7 +303,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-[data-theme="editorial"] .card-premium {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .card-premium {
   background: #FFFFFF;
   border: 1px solid hsl(40 14% 89%);
   border-radius: 16px;
@@ -308,29 +311,29 @@
               0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
-[data-theme="editorial"] .card-premium:hover {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .card-premium:hover {
   border-color: hsl(40 14% 84%);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06),
               0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-[data-theme="editorial"] .glow-orb {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .glow-orb {
   display: none !important;
 }
 
-[data-theme="editorial"] .section-divider {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .section-divider {
   background: linear-gradient(90deg, transparent 0%, hsl(40 14% 84%) 20%, hsl(40 14% 80%) 50%, hsl(40 14% 84%) 80%, transparent 100%);
 }
 
-[data-theme="editorial"] .section-divider::before {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .section-divider::before {
   background: radial-gradient(ellipse at center, hsl(157 100% 38% / 0.5), hsl(157 100% 38% / 0.2), transparent);
 }
 
-[data-theme="editorial"] .section-divider::after {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .section-divider::after {
   background: radial-gradient(ellipse at center, hsl(157 100% 38% / 0.2), hsl(157 100% 38% / 0.05), transparent);
 }
 
-[data-theme="editorial"] .shimmer::after {
+:is([data-theme="editorial"], [data-theme="editorial-animated"]) .shimmer::after {
   background: linear-gradient(
     110deg,
     transparent 25%,
@@ -338,4 +341,93 @@
     transparent 63%
   );
   background-size: 200% 100%;
+}
+
+/* ════════════════════════════════════════════
+   Editorial Animated — Extra Animations
+   ════════════════════════════════════════════ */
+
+[data-theme="editorial-animated"] .card-premium {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.5s ease;
+}
+
+[data-theme="editorial-animated"] .card-premium:hover {
+  transform: translateY(-6px);
+  border-color: hsl(157 100% 38% / 0.25);
+  box-shadow: 0 12px 40px rgba(0, 193, 122, 0.08),
+              0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Animated highlight shimmer for key text */
+@keyframes highlight-sweep {
+  0% { background-size: 0% 100%; }
+  100% { background-size: 100% 100%; }
+}
+
+@keyframes editorial-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-15px) rotate(1deg); }
+  66% { transform: translateY(-8px) rotate(-0.5deg); }
+}
+
+@keyframes editorial-float-reverse {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(12px) rotate(-1deg); }
+  66% { transform: translateY(6px) rotate(0.5deg); }
+}
+
+@keyframes blob-morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+  75% { border-radius: 60% 30% 50% 40% / 60% 40% 60% 50%; }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes editorial-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+@keyframes reveal-line {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes dot-orbit {
+  0% { transform: rotate(0deg) translateX(50px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
+}
+
+@keyframes gentle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes text-reveal {
+  0% { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes card-entrance {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes border-draw {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes color-cycle {
+  0%, 100% { color: #00C17A; }
+  33% { color: #0072F9; }
+  66% { color: #FFBC0A; }
 }

@@ -4,15 +4,14 @@ import { useTheme } from "@/contexts/ThemeContext";
 const ScrollProgress = () => {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-  const { theme } = useTheme();
-  const isEditorial = theme === "editorial";
+  const { isLight, isAnimated } = useTheme();
 
   return (
     <motion.div
       style={{ scaleX }}
       className={`fixed top-0 left-0 right-0 h-[3px] origin-left z-[60] ${
-        isEditorial ? "bg-[#00C17A]" : "bg-gradient-brand"
-      }`}
+        isLight ? "bg-[#00C17A]" : "bg-gradient-brand"
+      } ${isAnimated ? "shadow-[0_0_10px_rgba(0,193,122,0.4)]" : ""}`}
     />
   );
 };

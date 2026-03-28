@@ -38,12 +38,11 @@ const companies = [
 const Partners = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const { theme } = useTheme();
-  const isEditorial = theme === "editorial";
+  const { isLight, isAnimated } = useTheme();
 
   return (
     <section id="partners" className="pt-14 pb-14 md:pt-20 md:pb-20 relative" ref={ref}>
-      {!isEditorial && (
+      {!isLight && (
         <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary glow-orb animate-pulse-soft" />
       )}
 
@@ -55,7 +54,7 @@ const Partners = () => {
           className="text-center mb-10 md:mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-5">عمل فريقنا مع</h2>
-          <p className={`text-base md:text-lg max-w-2xl mx-auto ${isEditorial ? "text-[#494C6B]" : "text-muted-foreground"}`}>
+          <p className={`text-base md:text-lg max-w-2xl mx-auto ${isLight ? "text-[#494C6B]" : "text-muted-foreground"}`}>
             عملنا مع أبرز الجهات في القطاعين الحكومي والخاص
           </p>
         </motion.div>
@@ -66,14 +65,21 @@ const Partners = () => {
               key={i}
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-              transition={{ delay: i * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className={`relative w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[85px] md:min-h-[110px] group ${
-                isEditorial ? "rounded-2xl" : ""
-              }`}
+              transition={{
+                delay: isAnimated ? i * 0.08 : i * 0.05,
+                duration: isAnimated ? 0.7 : 0.5,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              whileHover={isAnimated ? {
+                y: -8,
+                scale: 1.03,
+                transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+              } : undefined}
+              className={`relative w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[85px] md:min-h-[110px] group rounded-2xl`}
               style={{ animationDelay: `${i * 0.4}s` }}
             >
               {/* Circulating pulse dot border — dark theme only */}
-              {!isEditorial && (
+              {!isLight && (
                 <div className="absolute inset-0 rounded-2xl overflow-hidden">
                   <div
                     className="absolute inset-0 animate-[spin_4s_linear_infinite]"
@@ -86,14 +92,16 @@ const Partners = () => {
 
               {/* Card background */}
               <div className={`absolute inset-[1px] rounded-2xl z-[1] ${
-                isEditorial
-                  ? "bg-white"
-                  : "bg-gradient-to-b from-card to-background"
+                isLight ? "bg-white" : "bg-gradient-to-b from-card to-background"
               }`} />
 
               {/* Border */}
-              <div className={`absolute inset-0 rounded-2xl border ${
-                isEditorial ? "border-[#EFEDE2]" : "border-border/30"
+              <div className={`absolute inset-0 rounded-2xl border transition-all duration-300 ${
+                isLight
+                  ? isAnimated
+                    ? "border-[#EFEDE2] group-hover:border-[#00C17A]/30 group-hover:shadow-md group-hover:shadow-[#00C17A]/5"
+                    : "border-[#EFEDE2]"
+                  : "border-border/30"
               }`} />
 
               {/* Content */}
@@ -102,7 +110,7 @@ const Partners = () => {
                   src={company.logo}
                   alt={company.name}
                   className={`h-12 md:h-20 w-auto max-w-[90%] object-contain transition-all duration-300 ${
-                    isEditorial ? "opacity-70 group-hover:opacity-100" : ""
+                    isLight ? "opacity-70 group-hover:opacity-100" : ""
                   }`}
                   style={{ imageRendering: 'auto' }}
                 />
