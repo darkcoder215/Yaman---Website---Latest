@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const serviceOptions = [
   "إطلاق منتجات داخلية",
@@ -19,6 +20,8 @@ const Contact = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const { toast } = useToast();
+  const { theme } = useTheme();
+  const isEditorial = theme === "editorial";
 
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
@@ -40,8 +43,12 @@ const Contact = () => {
 
   return (
     <section id="contact" className="pt-14 pb-14 md:pt-20 md:pb-20 relative" ref={ref}>
-      <div className="absolute right-1/4 bottom-0 w-[400px] h-[400px] bg-primary glow-orb animate-pulse-soft" />
-      <div className="absolute left-1/4 top-1/2 w-[300px] h-[300px] bg-secondary glow-orb animate-pulse-soft" />
+      {!isEditorial && (
+        <>
+          <div className="absolute right-1/4 bottom-0 w-[400px] h-[400px] bg-primary glow-orb animate-pulse-soft" />
+          <div className="absolute left-1/4 top-1/2 w-[300px] h-[300px] bg-secondary glow-orb animate-pulse-soft" />
+        </>
+      )}
 
       <div className="container relative z-10">
         <motion.div
@@ -69,9 +76,11 @@ const Contact = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 className="card-premium p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px]"
               >
-                <CheckCircle className="w-16 h-16 text-emerald-400 mb-6" />
+                <CheckCircle className={`w-16 h-16 mb-6 ${isEditorial ? "text-[#00C17A]" : "text-emerald-400"}`} />
                 <h3 className="text-2xl font-bold mb-3 text-foreground">شكرًا لتواصلك!</h3>
-                <p className="text-muted-foreground">تم استلام طلبك وسيتواصل معك فريقنا خلال 24 ساعة.</p>
+                <p className={isEditorial ? "text-[#494C6B]" : "text-muted-foreground"}>
+                  تم استلام طلبك وسيتواصل معك فريقنا خلال 24 ساعة.
+                </p>
                 <Button
                   variant="outline"
                   className="mt-8"
@@ -89,7 +98,10 @@ const Contact = () => {
                       placeholder="اسمك الكامل"
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="bg-muted/50 border-border/50 focus:border-primary/50"
+                      className={isEditorial
+                        ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50"
+                        : "bg-muted/50 border-border/50 focus:border-primary/50"
+                      }
                     />
                   </div>
                   <div className="space-y-2">
@@ -100,7 +112,10 @@ const Contact = () => {
                       dir="ltr"
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="bg-muted/50 border-border/50 focus:border-primary/50 text-left"
+                      className={`text-left ${isEditorial
+                        ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50"
+                        : "bg-muted/50 border-border/50 focus:border-primary/50"
+                      }`}
                     />
                   </div>
                 </div>
@@ -114,7 +129,10 @@ const Contact = () => {
                       dir="ltr"
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className="bg-muted/50 border-border/50 focus:border-primary/50 text-left"
+                      className={`text-left ${isEditorial
+                        ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50"
+                        : "bg-muted/50 border-border/50 focus:border-primary/50"
+                      }`}
                     />
                   </div>
                   <div className="space-y-2">
@@ -122,7 +140,11 @@ const Contact = () => {
                     <select
                       value={form.service}
                       onChange={(e) => setForm({ ...form, service: e.target.value })}
-                      className="flex h-10 w-full rounded-md border border-border/50 bg-muted/50 px-3 py-2 text-sm text-foreground focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background"
+                      className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                        isEditorial
+                          ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50 focus:ring-[#00C17A]/20 focus:ring-offset-white"
+                          : "bg-muted/50 border-border/50 focus:border-primary/50 focus:ring-ring focus:ring-offset-background"
+                      }`}
                     >
                       <option value="">اختر الخدمة</option>
                       {serviceOptions.map((s) => (
@@ -139,14 +161,21 @@ const Contact = () => {
                     rows={5}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    className="bg-muted/50 border-border/50 focus:border-primary/50 resize-none"
+                    className={`resize-none ${isEditorial
+                      ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50"
+                      : "bg-muted/50 border-border/50 focus:border-primary/50"
+                    }`}
                   />
                 </div>
 
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-12 bg-gradient-brand text-primary-foreground font-semibold text-base hover:opacity-90 transition-opacity"
+                  className={`w-full h-12 font-semibold text-base transition-opacity ${
+                    isEditorial
+                      ? "bg-[#000000] text-white hover:bg-[#2B2D3F] rounded-full"
+                      : "bg-gradient-brand text-primary-foreground hover:opacity-90"
+                  }`}
                 >
                   {loading ? (
                     <motion.div
@@ -176,11 +205,15 @@ const Contact = () => {
               href="mailto:business@landscapex.co"
               className="card-premium p-5 flex items-center gap-4 group block"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 flex items-center justify-center group-hover:from-primary/25 group-hover:to-primary/10 transition-all duration-500">
-                <Mail className="w-5 h-5 text-primary" />
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                isEditorial
+                  ? "bg-[#00C17A]/10 group-hover:bg-[#00C17A]/20"
+                  : "bg-gradient-to-br from-primary/15 to-primary/5 group-hover:from-primary/25 group-hover:to-primary/10"
+              }`}>
+                <Mail className={`w-5 h-5 ${isEditorial ? "text-[#00C17A]" : "text-primary"}`} />
               </div>
               <div>
-                <p className="text-xs text-muted-foreground mb-0.5">البريد الإلكتروني</p>
+                <p className={`text-xs mb-0.5 ${isEditorial ? "text-[#494C6B]" : "text-muted-foreground"}`}>البريد الإلكتروني</p>
                 <p className="font-medium text-sm text-foreground" dir="ltr">business@landscapex.co</p>
               </div>
             </a>
@@ -189,18 +222,22 @@ const Contact = () => {
               href="tel:0560656965"
               className="card-premium p-5 flex items-center gap-4 group block"
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 flex items-center justify-center group-hover:from-primary/25 group-hover:to-primary/10 transition-all duration-500">
-                <Phone className="w-5 h-5 text-primary" />
+              <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                isEditorial
+                  ? "bg-[#00C17A]/10 group-hover:bg-[#00C17A]/20"
+                  : "bg-gradient-to-br from-primary/15 to-primary/5 group-hover:from-primary/25 group-hover:to-primary/10"
+              }`}>
+                <Phone className={`w-5 h-5 ${isEditorial ? "text-[#00C17A]" : "text-primary"}`} />
               </div>
               <div>
-                <p className="text-xs text-muted-foreground mb-0.5">الهاتف</p>
+                <p className={`text-xs mb-0.5 ${isEditorial ? "text-[#494C6B]" : "text-muted-foreground"}`}>الهاتف</p>
                 <p className="font-medium text-sm text-foreground" dir="ltr">0560656965</p>
               </div>
             </a>
 
             <div className="card-premium p-5">
               <p className="text-sm font-semibold text-foreground mb-2">ساعات العمل</p>
-              <p className="text-xs text-muted-foreground leading-relaxed">
+              <p className={`text-xs leading-relaxed ${isEditorial ? "text-[#494C6B]" : "text-muted-foreground"}`}>
                 الأحد - الخميس<br />
                 9:00 صباحًا - 5:00 مساءً
               </p>

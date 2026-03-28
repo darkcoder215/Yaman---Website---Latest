@@ -1,6 +1,7 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, Linkedin } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 import founderYaman from "@/assets/founder-yaman.jpeg";
 import founderBandar from "@/assets/founder-bandar.jpeg";
 import founderAbdulrahim from "@/assets/founder-abdulrahim.jpeg";
@@ -45,6 +46,8 @@ const Founders = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [active, setActive] = useState(0);
+  const { theme } = useTheme();
+  const isEditorial = theme === "editorial";
 
   const go = useCallback((dir: number) => {
     setActive((prev) => (prev + dir + founders.length) % founders.length);
@@ -57,7 +60,9 @@ const Founders = () => {
 
   return (
     <section id="founders" className="pt-14 pb-14 md:pt-20 md:pb-20 relative overflow-hidden" ref={ref}>
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-secondary glow-orb animate-pulse-soft" />
+      {!isEditorial && (
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-secondary glow-orb animate-pulse-soft" />
+      )}
 
       <div className="container relative z-10">
         <motion.div
@@ -67,7 +72,9 @@ const Founders = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-5">فريق التأسيس</h2>
-          <p className="text-muted-foreground text-base md:text-lg">+45 عام من الخبرات المتراكمة في بناء الشركات الناشئة والابتكار</p>
+          <p className={`text-base md:text-lg ${isEditorial ? "text-[#494C6B]" : "text-muted-foreground"}`}>
+            +45 عام من الخبرات المتراكمة في بناء الشركات الناشئة والابتكار
+          </p>
         </motion.div>
 
         <motion.div
@@ -76,7 +83,7 @@ const Founders = () => {
           transition={{ delay: 0.3, duration: 0.7 }}
           className="relative"
         >
-          {/* Photos row — all same size */}
+          {/* Photos row */}
           <div className="relative flex items-center justify-center gap-3 md:gap-5 px-14 md:px-20">
             {founders.map((founder, i) => {
               const isActive = i === active;
@@ -86,7 +93,9 @@ const Founders = () => {
                   onClick={() => setActive(i)}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
-                  className="relative flex-1 max-w-[250px] rounded-2xl overflow-hidden focus:outline-none"
+                  className={`relative flex-1 max-w-[250px] overflow-hidden focus:outline-none ${
+                    isEditorial ? "rounded-2xl" : "rounded-2xl"
+                  }`}
                   style={{ aspectRatio: "3/4" }}
                 >
                   <img
@@ -110,7 +119,9 @@ const Founders = () => {
                   {isActive && (
                     <motion.div
                       layoutId="active-ring"
-                      className="absolute inset-0 rounded-2xl border-[6px] border-primary pointer-events-none"
+                      className={`absolute inset-0 rounded-2xl border-[6px] pointer-events-none ${
+                        isEditorial ? "border-[#00C17A]" : "border-primary"
+                      }`}
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                     />
                   )}
@@ -121,7 +132,11 @@ const Founders = () => {
             {/* Arrow left */}
             <button
               onClick={() => go(-1)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass flex items-center justify-center text-foreground hover:bg-muted/60 transition-colors z-20"
+              className={`absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-colors z-20 ${
+                isEditorial
+                  ? "bg-white border border-[#EFEDE2] text-[#000000] hover:bg-[#F7F4EE] shadow-sm"
+                  : "glass text-foreground hover:bg-muted/60"
+              }`}
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -129,7 +144,11 @@ const Founders = () => {
             {/* Arrow right */}
             <button
               onClick={() => go(1)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full glass flex items-center justify-center text-foreground hover:bg-muted/60 transition-colors z-20"
+              className={`absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-colors z-20 ${
+                isEditorial
+                  ? "bg-white border border-[#EFEDE2] text-[#000000] hover:bg-[#F7F4EE] shadow-sm"
+                  : "glass text-foreground hover:bg-muted/60"
+              }`}
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -142,7 +161,9 @@ const Founders = () => {
                 key={i}
                 onClick={() => setActive(i)}
                 className={`h-2.5 rounded-full transition-all duration-300 ${
-                  i === active ? "bg-primary w-7" : "bg-muted-foreground/30 w-2.5 hover:bg-muted-foreground/50"
+                  i === active
+                    ? `w-7 ${isEditorial ? "bg-[#00C17A]" : "bg-primary"}`
+                    : `w-2.5 ${isEditorial ? "bg-[#EFEDE2] hover:bg-[#D1C4E2]" : "bg-muted-foreground/30 hover:bg-muted-foreground/50"}`
                 }`}
               />
             ))}
@@ -160,7 +181,11 @@ const Founders = () => {
             className="text-center mt-8 max-w-xl mx-auto"
           >
             <p
-              className="text-foreground/80 text-sm md:text-base leading-loose [&_strong]:text-primary [&_strong]:font-bold"
+              className={`text-sm md:text-base leading-loose ${
+                isEditorial
+                  ? "text-[#494C6B] [&_strong]:text-[#00C17A] [&_strong]:font-bold"
+                  : "text-foreground/80 [&_strong]:text-primary [&_strong]:font-bold"
+              }`}
               dangerouslySetInnerHTML={{ __html: founders[active].bio }}
             />
           </motion.div>

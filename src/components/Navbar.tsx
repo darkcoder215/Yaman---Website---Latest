@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 import logoHeader from "@/assets/logo-header.png";
 
 const navLinks = [
@@ -13,6 +14,8 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const isEditorial = theme === "editorial";
 
   return (
     <>
@@ -23,12 +26,45 @@ const Navbar = () => {
         className="fixed top-0 right-0 left-0 z-50 glass-strong"
       >
         <div className="container flex items-center justify-between h-16 md:h-20 px-4">
-          <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-foreground">
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={() => setOpen(!open)} className="md:hidden p-2 text-foreground">
+              {open ? <X size={22} /> : <Menu size={22} />}
+            </button>
+
+            {/* Theme Switcher */}
+            <button
+              onClick={toggleTheme}
+              className={`relative w-14 h-7 rounded-full transition-all duration-500 flex items-center ${
+                isEditorial
+                  ? "bg-[#00C17A]/15 border border-[#00C17A]/30"
+                  : "bg-primary/15 border border-primary/30"
+              }`}
+              aria-label="تبديل المظهر"
+            >
+              <motion.div
+                layout
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                  isEditorial
+                    ? "mr-auto ml-1 bg-[#00C17A]"
+                    : "ml-auto mr-1 bg-primary"
+                }`}
+              >
+                {isEditorial ? (
+                  <Sun className="w-3 h-3 text-white" />
+                ) : (
+                  <Moon className="w-3 h-3 text-white" />
+                )}
+              </motion.div>
+            </button>
+          </div>
 
           <a href="#" className="flex-shrink-0 md:mr-0">
-            <img src={logoHeader} alt="لاندسكيب إكس" className="h-8 md:h-10 w-auto" />
+            <img
+              src={logoHeader}
+              alt="لاندسكيب إكس"
+              className={`h-8 md:h-10 w-auto transition-all duration-500 ${isEditorial ? "invert" : ""}`}
+            />
           </a>
 
           <div className="hidden md:flex items-center gap-8 text-sm mx-auto">
@@ -36,10 +72,18 @@ const Navbar = () => {
               <a
                 key={l.href}
                 href={l.href}
-                className="text-muted-foreground hover:text-foreground hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.6)] transition-all duration-300 relative group font-bold"
+                className={`hover:text-foreground transition-all duration-300 relative group font-bold ${
+                  isEditorial
+                    ? "text-[#494C6B] hover:drop-shadow-none"
+                    : "text-muted-foreground hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.6)]"
+                }`}
               >
                 {l.label}
-                <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-gradient-brand group-hover:w-full transition-all duration-300" />
+                <span
+                  className={`absolute -bottom-1 right-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ${
+                    isEditorial ? "bg-[#00C17A]" : "bg-gradient-brand"
+                  }`}
+                />
               </a>
             ))}
           </div>

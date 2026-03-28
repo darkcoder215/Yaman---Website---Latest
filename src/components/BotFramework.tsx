@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Hammer, Settings, ArrowRightLeft } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
 
 const phases = [
   {
@@ -10,6 +11,7 @@ const phases = [
     titleAr: "النقل",
     icon: ArrowRightLeft,
     color: "from-accent to-primary",
+    editorialColor: "#0072F9",
     glowColor: "hsl(200 80% 55%)",
     description: "ننقل الملكية والإدارة بالكامل إلى المستثمر أو الشريك مع ضمان استمرارية النجاح.",
     points: [
@@ -26,6 +28,7 @@ const phases = [
     titleAr: "التشغيل",
     icon: Settings,
     color: "from-secondary to-accent",
+    editorialColor: "#FFBC0A",
     glowColor: "hsl(275 65% 50%)",
     description: "ندير العمليات اليومية ونحقق النمو المستدام مع أتمتة العمليات التشغيلية.",
     points: [
@@ -42,6 +45,7 @@ const phases = [
     titleAr: "البناء",
     icon: Hammer,
     color: "from-primary to-secondary",
+    editorialColor: "#00C17A",
     glowColor: "hsl(250 80% 60%)",
     description: "نبني المنتج من الصفر — من الفكرة إلى النموذج الأولي إلى الإطلاق الكامل.",
     points: [
@@ -57,6 +61,8 @@ const BotFramework = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [activePhase, setActivePhase] = useState(0);
+  const { theme } = useTheme();
+  const isEditorial = theme === "editorial";
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -64,15 +70,18 @@ const BotFramework = () => {
     }, 4000);
     return () => clearInterval(timer);
   }, []);
+
   return (
     <section id="bot-framework" className="pt-14 pb-14 md:pt-20 md:pb-20 relative overflow-hidden" ref={ref}>
-      {/* Background orb */}
-      <motion.div
-        className="absolute right-1/3 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
-        style={{ background: phases[activePhase].glowColor, filter: "blur(120px)", opacity: 0.08 }}
-        animate={{ background: phases[activePhase].glowColor }}
-        transition={{ duration: 1.5 }}
-      />
+      {/* Background orb — dark only */}
+      {!isEditorial && (
+        <motion.div
+          className="absolute right-1/3 top-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
+          style={{ background: phases[activePhase].glowColor, filter: "blur(120px)", opacity: 0.08 }}
+          animate={{ background: phases[activePhase].glowColor }}
+          transition={{ duration: 1.5 }}
+        />
+      )}
 
       <div className="container relative z-10">
         {/* Header */}
@@ -85,7 +94,7 @@ const BotFramework = () => {
           <h2 className="text-3xl md:text-5xl font-black mb-5">
             نبني، نشغّل، وننقل:
           </h2>
-          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
+          <p className={`text-base md:text-lg max-w-2xl mx-auto ${isEditorial ? "text-[#494C6B]" : "text-muted-foreground"}`}>
             إطار عمل متكامل لتحويل الأفكار إلى شركات مستدامة
           </p>
         </motion.div>
@@ -111,8 +120,8 @@ const BotFramework = () => {
                   isActive ? "z-10" : "opacity-40 hover:opacity-70"
                 }`}
               >
-                {/* Glow ring */}
-                {isActive && (
+                {/* Glow ring — dark only */}
+                {isActive && !isEditorial && (
                   <motion.div
                     layoutId="bot-glow"
                     className={`absolute -inset-3 rounded-3xl bg-gradient-to-br ${phase.color} opacity-20 blur-xl`}
@@ -122,19 +131,35 @@ const BotFramework = () => {
 
                 <div
                   className={`relative flex flex-col items-center gap-2 px-6 py-5 md:px-10 md:py-7 rounded-2xl border transition-all duration-500 ${
-                    isActive
-                      ? "border-primary/40 bg-card shadow-2xl shadow-primary/10"
-                      : "border-border/30 bg-card/50"
+                    isEditorial
+                      ? isActive
+                        ? "border-[#EFEDE2] bg-white shadow-md"
+                        : "border-[#EFEDE2] bg-white/50"
+                      : isActive
+                        ? "border-primary/40 bg-card shadow-2xl shadow-primary/10"
+                        : "border-border/30 bg-card/50"
                   }`}
                 >
                   <span
-                    className={`text-4xl md:text-6xl font-black tracking-tighter transition-all duration-500 bg-clip-text text-transparent bg-gradient-to-br ${phase.color}`}
+                    className={`text-4xl md:text-6xl font-black tracking-tighter transition-all duration-500 ${
+                      isEditorial
+                        ? "text-[#000000]"
+                        : `bg-clip-text text-transparent bg-gradient-to-br ${phase.color}`
+                    }`}
                   >
                     {phase.letter}
                   </span>
                   <div className="flex items-center gap-1.5">
-                    <Icon className={`w-3.5 h-3.5 transition-colors duration-500 ${isActive ? "text-primary" : "text-muted-foreground"}`} />
-                    <span className={`text-xs font-bold transition-colors duration-500 ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
+                    <Icon className={`w-3.5 h-3.5 transition-colors duration-500 ${
+                      isEditorial
+                        ? isActive ? "text-[#00C17A]" : "text-[#494C6B]"
+                        : isActive ? "text-primary" : "text-muted-foreground"
+                    }`} />
+                    <span className={`text-xs font-bold transition-colors duration-500 ${
+                      isEditorial
+                        ? isActive ? "text-[#000000]" : "text-[#494C6B]"
+                        : isActive ? "text-foreground" : "text-muted-foreground"
+                    }`}>
                       {phase.title}
                     </span>
                   </div>
@@ -143,9 +168,6 @@ const BotFramework = () => {
             );
           })}
         </motion.div>
-
-
-
 
         {/* Phase Detail Card */}
         <motion.div
@@ -156,12 +178,22 @@ const BotFramework = () => {
           className="max-w-3xl mx-auto"
         >
           <div className="card-premium p-8 md:p-12 relative overflow-hidden">
-            {/* Subtle gradient accent */}
-            <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${phases[activePhase].color}`} />
+            {/* Top accent bar */}
+            <div
+              className={`absolute top-0 left-0 w-full h-1 ${
+                isEditorial ? "" : `bg-gradient-to-r ${phases[activePhase].color}`
+              }`}
+              style={isEditorial ? { backgroundColor: phases[activePhase].editorialColor } : undefined}
+            />
 
             <div className="relative">
               <div className="flex items-center gap-3 mb-4">
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${phases[activePhase].color} flex items-center justify-center`}>
+                <div
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                    isEditorial ? "" : `bg-gradient-to-br ${phases[activePhase].color}`
+                  }`}
+                  style={isEditorial ? { backgroundColor: phases[activePhase].editorialColor } : undefined}
+                >
                   {(() => {
                     const Icon = phases[activePhase].icon;
                     return <Icon className="w-5 h-5 text-white" />;
@@ -171,11 +203,15 @@ const BotFramework = () => {
                   <h3 className="text-xl md:text-2xl font-black text-foreground">
                     {phases[activePhase].titleAr}
                   </h3>
-                  <p className="text-xs text-muted-foreground font-medium">{phases[activePhase].title}</p>
+                  <p className={`text-xs font-medium ${isEditorial ? "text-[#494C6B]" : "text-muted-foreground"}`}>
+                    {phases[activePhase].title}
+                  </p>
                 </div>
               </div>
 
-              <p className="text-foreground/80 text-sm md:text-base font-medium leading-relaxed mb-8">
+              <p className={`text-sm md:text-base font-medium leading-relaxed mb-8 ${
+                isEditorial ? "text-[#494C6B]" : "text-foreground/80"
+              }`}>
                 {phases[activePhase].description}
               </p>
 
@@ -186,10 +222,21 @@ const BotFramework = () => {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-muted/30 border border-border/20"
+                    className={`flex items-center gap-3 p-3 rounded-xl border ${
+                      isEditorial
+                        ? "bg-[#F7F4EE] border-[#EFEDE2]"
+                        : "bg-muted/30 border-border/20"
+                    }`}
                   >
-                    <div className={`w-2 h-2 rounded-full bg-gradient-to-br ${phases[activePhase].color} flex-shrink-0`} />
-                    <span className="text-sm font-semibold text-foreground/80">{point}</span>
+                    <div
+                      className={`w-2 h-2 rounded-full flex-shrink-0 ${
+                        isEditorial ? "" : `bg-gradient-to-br ${phases[activePhase].color}`
+                      }`}
+                      style={isEditorial ? { backgroundColor: phases[activePhase].editorialColor } : undefined}
+                    />
+                    <span className={`text-sm font-semibold ${isEditorial ? "text-[#2B2D3F]" : "text-foreground/80"}`}>
+                      {point}
+                    </span>
                   </motion.div>
                 ))}
               </div>
@@ -204,7 +251,9 @@ const BotFramework = () => {
               key={i}
               onClick={() => setActivePhase(i)}
               className={`h-2.5 rounded-full transition-all duration-500 ${
-                i === activePhase ? "bg-primary w-7" : "bg-muted-foreground/30 w-2.5 hover:bg-muted-foreground/50"
+                i === activePhase
+                  ? `w-7 ${isEditorial ? "bg-[#00C17A]" : "bg-primary"}`
+                  : `w-2.5 ${isEditorial ? "bg-[#EFEDE2] hover:bg-[#D1C4E2]" : "bg-muted-foreground/30 hover:bg-muted-foreground/50"}`
               }`}
             />
           ))}
