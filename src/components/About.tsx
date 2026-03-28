@@ -1,7 +1,8 @@
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useInView, animate } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import { useTheme } from "@/contexts/ThemeContext";
 
-const AnimatedNumber = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
+const AnimatedNumber = ({ target, suffix = "", prefix = "" }: { target: number; suffix?: string; prefix?: string }) => {
   const [value, setValue] = useState(0);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });
@@ -16,32 +17,51 @@ const AnimatedNumber = ({ target, suffix = "" }: { target: number; suffix?: stri
     return () => controls.stop();
   }, [inView, target]);
 
-  return <span ref={ref}>{value}{suffix}</span>;
+  return <span ref={ref}>{prefix}{value}{suffix}</span>;
 };
 
 const stats = [
-  { number: 45, prefix: "+", suffix: "", label: "عام من الخبرات المتراكمة", desc: "في بناء الشركات والابتكار والاستثمار" },
-  { number: 9, prefix: "+", suffix: "", label: "سنوات في تأسيس الشركات", desc: "خبرة عملية في ريادة الأعمال" },
-  { number: 80, prefix: "", suffix: "%", label: "أتمتة التشغيل المستهدفة", desc: "لتقليل التكلفة وتحسين الربحية" },
+  { number: 45, prefix: "+", suffix: "", label: "عام من الخبرات المتراكمة", desc: "في بناء الشركات والابتكار والاستثمار", highlightColor: "#B5E8BE" },
+  { number: 9, prefix: "+", suffix: "", label: "سنوات في تأسيس الشركات", desc: "خبرة عملية في ريادة الأعمال", highlightColor: "#F9E59E" },
+  { number: 80, prefix: "", suffix: "%", label: "أتمتة التشغيل المستهدفة", desc: "لتقليل التكلفة وتحسين الربحية", highlightColor: "#AFE2EA" },
 ];
 
 const About = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const { isLight, isAnimated } = useTheme();
 
   return (
     <section id="about" className="pt-14 pb-14 md:pt-20 md:pb-20 relative" ref={ref}>
+      {!isLight && (
+        <div className="absolute left-1/4 top-1/3 w-[500px] h-[500px] bg-accent glow-orb animate-pulse-soft" />
+      )}
+
       <div className="container">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="text-center mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-16 md:mb-20"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-5">
-            عن <span className="text-gradient">لاندسكيب إكس</span>
+            عن{" "}
+            {isLight ? (
+              <span className="relative inline-block">
+                <span className="relative z-10">لاندسكيب إكس</span>
+                <motion.span
+                  className="absolute bottom-1 right-0 left-0 h-3 md:h-4 bg-[#B5E8BE] -z-0 rounded-sm"
+                  initial={isAnimated ? { scaleX: 0 } : undefined}
+                  animate={isAnimated && inView ? { scaleX: 1 } : undefined}
+                  transition={isAnimated ? { delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] } : undefined}
+                  style={isAnimated ? { transformOrigin: "right" } : undefined}
+                />
+              </span>
+            ) : (
+              <span className="text-gradient">لاندسكيب إكس</span>
+            )}
           </h2>
-          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className={`text-base md:text-lg max-w-2xl mx-auto leading-relaxed ${isLight ? "text-[#494C6B]" : "text-muted-foreground"}`}>
             نمزج بين المنهجيات المتعددة بهدف استكشاف وصناعة وحماية القيمة لعملاء ومستثمري لاندسكيب إكس
           </p>
         </motion.div>
@@ -50,18 +70,37 @@ const About = () => {
           {stats.map((stat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 0.3 + i * 0.2, duration: 1, ease: "easeOut" }}
-              className="card-premium p-8 md:p-10 text-center group shimmer relative overflow-hidden"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+              transition={{ delay: 0.3 + i * 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={isAnimated ? { y: -6, transition: { duration: 0.35 } } : undefined}
+              className="card-premium p-8 md:p-10 text-center group relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary glow-orb opacity-10 group-hover:opacity-20 transition-opacity duration-500" />
+              {!isLight && (
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary glow-orb opacity-10 group-hover:opacity-20 transition-opacity duration-500" />
+              )}
+
               <div className="relative">
-                <div className="text-5xl md:text-6xl font-bold text-gradient-warm mb-3">
-                  {stat.prefix}<AnimatedNumber target={stat.number} suffix={stat.suffix} />
-                </div>
+                {isLight ? (
+                  <div className="relative inline-block mb-4">
+                    <span className="text-5xl md:text-6xl font-black text-[#000000] relative z-10">
+                      <AnimatedNumber target={stat.number} suffix={stat.suffix} prefix={stat.prefix} />
+                    </span>
+                    <motion.span
+                      className="absolute bottom-1 right-0 left-0 h-4 md:h-5 -z-0 rounded-sm"
+                      style={{ backgroundColor: stat.highlightColor }}
+                      initial={isAnimated ? { scaleX: 0 } : undefined}
+                      animate={isAnimated && inView ? { scaleX: 1 } : undefined}
+                      transition={isAnimated ? { delay: 0.6 + i * 0.2, duration: 0.5 } : undefined}
+                    />
+                  </div>
+                ) : (
+                  <div className="text-5xl md:text-6xl font-bold text-gradient-warm mb-3">
+                    <AnimatedNumber target={stat.number} suffix={stat.suffix} prefix={stat.prefix} />
+                  </div>
+                )}
                 <h3 className="font-bold text-foreground mb-2">{stat.label}</h3>
-                <p className="text-muted-foreground text-sm">{stat.desc}</p>
+                <p className={`text-sm ${isLight ? "text-[#494C6B]" : "text-muted-foreground"}`}>{stat.desc}</p>
               </div>
             </motion.div>
           ))}
