@@ -70,16 +70,6 @@ const Founders = () => {
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-secondary glow-orb animate-pulse-soft" />
       )}
 
-      {/* Light theme geometric decorative circles */}
-      {isLight && (
-        <>
-          <div className="absolute -top-20 -right-20 w-[340px] h-[340px] rounded-full border border-[#EFEDE2] opacity-60 pointer-events-none" />
-          <div className="absolute -bottom-16 -left-16 w-[260px] h-[260px] rounded-full border border-[#EFEDE2] opacity-40 pointer-events-none" />
-          <div className="absolute top-1/3 right-[6%] w-[100px] h-[100px] rounded-full bg-[#00C17A]/5 pointer-events-none" />
-          <div className="absolute bottom-1/4 left-[8%] w-[70px] h-[70px] rounded-full bg-[#0072F9]/5 pointer-events-none" />
-        </>
-      )}
-
       {/* Animated floating accent shapes */}
       {isAnimated && (
         <>

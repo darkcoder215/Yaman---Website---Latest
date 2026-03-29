@@ -53,15 +53,6 @@ const Contact = () => {
         </>
       )}
 
-      {/* Geometric decorative circles — light theme */}
-      {isLight && (
-        <>
-          <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full border border-[#EFEDE2] pointer-events-none" />
-          <div className="absolute -bottom-32 -left-32 w-[520px] h-[520px] rounded-full border border-[#EFEDE2] pointer-events-none" />
-          <div className="absolute top-1/3 right-[8%] w-[180px] h-[180px] rounded-full bg-[#00C17A]/[0.04] pointer-events-none" />
-          <div className="absolute bottom-[15%] left-[5%] w-[100px] h-[100px] rounded-full bg-[#0072F9]/[0.04] pointer-events-none" />
-        </>
-      )}
 
       {/* Animated decorative elements */}
       {isAnimated && (

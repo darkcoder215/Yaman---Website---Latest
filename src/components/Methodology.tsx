@@ -56,18 +56,6 @@ const Methodology = () => {
         <div className="absolute right-0 bottom-1/3 w-[500px] h-[500px] bg-secondary glow-orb animate-pulse-soft" />
       )}
 
-      {/* Light theme decorative circles */}
-      {isLight && (
-        <>
-          <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full border border-[#EFEDE2] opacity-60 pointer-events-none" />
-          <div className="absolute -top-12 -left-12 w-56 h-56 rounded-full border border-[#EFEDE2] opacity-40 pointer-events-none" />
-          <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full border border-[#EFEDE2] opacity-50 pointer-events-none" />
-          <div className="absolute -bottom-10 -right-10 w-64 h-64 rounded-full border border-[#EFEDE2] opacity-30 pointer-events-none" />
-          <div className="absolute top-1/2 left-[8%] w-5 h-5 rounded-full bg-[#00C17A]/10 pointer-events-none" />
-          <div className="absolute top-[20%] right-[12%] w-3 h-3 rounded-full bg-[#0072F9]/10 pointer-events-none" />
-          <div className="absolute bottom-[25%] left-[15%] w-4 h-4 rounded-full bg-[#FFBC0A]/10 pointer-events-none" />
-        </>
-      )}
 
       {isAnimated && (
         <motion.div

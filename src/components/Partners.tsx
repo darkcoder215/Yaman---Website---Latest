@@ -53,23 +53,6 @@ const Partners = () => {
         <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary glow-orb animate-pulse-soft" />
       )}
 
-      {/* Light theme decorative geometric circles */}
-      {isLight && (
-        <>
-          <div
-            className="absolute -top-32 -right-32 w-[320px] h-[320px] rounded-full border border-[#EFEDE2] opacity-40 pointer-events-none"
-          />
-          <div
-            className="absolute -bottom-24 -left-24 w-[240px] h-[240px] rounded-full border border-[#EFEDE2] opacity-30 pointer-events-none"
-          />
-          <div
-            className="absolute top-1/3 -left-16 w-[160px] h-[160px] rounded-full border border-[#00C17A]/10 opacity-50 pointer-events-none"
-          />
-          <div
-            className="absolute bottom-1/4 -right-20 w-[200px] h-[200px] rounded-full border-2 border-[#EFEDE2] opacity-20 pointer-events-none"
-          />
-        </>
-      )}
 
       <div className="container relative z-10">
         <motion.div

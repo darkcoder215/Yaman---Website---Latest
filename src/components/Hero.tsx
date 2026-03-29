@@ -27,45 +27,9 @@ const Hero = () => {
         </>
       )}
 
-      {/* ── Editorial background: premium, layered ── */}
+      {/* ── Editorial background: clean, flat ── */}
       {isLight && (
-        <div className="absolute inset-0 bg-[#F7F4EE]">
-          {/* Large branded geometric accent — top right */}
-          <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full border border-[#00C17A]/[0.07]" />
-          <div className="absolute -top-24 -left-24 w-[400px] h-[400px] rounded-full border border-[#00C17A]/[0.05]" />
-
-          {/* Bottom left accent circle */}
-          <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#00C17A]/[0.03] to-transparent" />
-
-          {/* Subtle dot grid texture */}
-          <div
-            className="absolute inset-0 opacity-[0.35]"
-            style={{
-              backgroundImage: "radial-gradient(circle, #000000 0.5px, transparent 0.5px)",
-              backgroundSize: "24px 24px",
-            }}
-          />
-
-          {/* Animated blobs — animated variant */}
-          {isAnimated && (
-            <>
-              <motion.div
-                className="absolute top-[15%] left-[8%] w-[300px] h-[300px] opacity-[0.06]"
-                style={{
-                  background: "radial-gradient(circle, #00C17A 0%, transparent 70%)",
-                  animation: "blob-morph 12s ease-in-out infinite, editorial-float 14s ease-in-out infinite",
-                }}
-              />
-              <motion.div
-                className="absolute bottom-[10%] right-[5%] w-[250px] h-[250px] opacity-[0.04]"
-                style={{
-                  background: "radial-gradient(circle, #0072F9 0%, transparent 70%)",
-                  animation: "blob-morph 10s ease-in-out infinite 3s, editorial-float-reverse 12s ease-in-out infinite",
-                }}
-              />
-            </>
-          )}
-        </div>
+        <div className="absolute inset-0 bg-[#F7F4EE]" />
       )}
 
       <div className="container relative z-10 pt-28 pb-20">

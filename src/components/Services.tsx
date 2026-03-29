@@ -38,14 +38,6 @@ const Services = () => {
         <div className="absolute right-0 top-1/3 w-[600px] h-[600px] bg-primary glow-orb animate-pulse-soft" />
       )}
 
-      {/* Geometric decorative circles — light only */}
-      {isLight && (
-        <>
-          <div className="absolute top-16 left-[8%] w-72 h-72 rounded-full border border-[#EFEDE2] opacity-40 pointer-events-none" />
-          <div className="absolute bottom-24 right-[5%] w-96 h-96 rounded-full border border-[#EFEDE2] opacity-30 pointer-events-none" />
-          <div className="absolute top-1/2 left-[50%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-[#EFEDE2] opacity-20 pointer-events-none" />
-        </>
-      )}
 
       {/* Animated decorative accent — animated editorial only */}
       {isAnimated && (

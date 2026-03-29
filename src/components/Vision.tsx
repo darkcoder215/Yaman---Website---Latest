@@ -68,27 +68,6 @@ const Vision = () => {
         </div>
       )}
 
-      {/* Light theme: Geometric decorative circle borders */}
-      {isLight && (
-        <>
-          <div
-            className="absolute -top-20 -left-20 w-72 h-72 rounded-full border-2 border-[#EFEDE2] pointer-events-none"
-            style={{ opacity: 0.5 }}
-          />
-          <div
-            className="absolute -bottom-16 -right-16 w-56 h-56 rounded-full border-2 border-[#EFEDE2] pointer-events-none"
-            style={{ opacity: 0.4 }}
-          />
-          <div
-            className="absolute top-1/3 right-12 w-32 h-32 rounded-full border border-[#EFEDE2] pointer-events-none"
-            style={{ opacity: 0.35 }}
-          />
-          <div
-            className="absolute bottom-1/4 left-16 w-44 h-44 rounded-full border border-dashed border-[#EFEDE2] pointer-events-none"
-            style={{ opacity: 0.3 }}
-          />
-        </>
-      )}
 
       <div className="container relative z-10">
         {/* Header */}

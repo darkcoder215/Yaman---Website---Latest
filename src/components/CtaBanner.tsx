@@ -39,18 +39,6 @@ const CtaBanner = () => {
             />
           )}
 
-          {/* Light theme: decorative large geometric circle */}
-          {isLight && (
-            <>
-              <div
-                className="absolute -top-24 -left-24 w-[400px] h-[400px] rounded-full border border-white/[0.05] pointer-events-none"
-              />
-              <div
-                className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full border border-white/[0.05] pointer-events-none"
-              />
-            </>
-          )}
-
           {/* Animated background elements — animated editorial (light) */}
           {isLight && isAnimated && (
             <>

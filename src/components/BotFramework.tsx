@@ -104,29 +104,6 @@ const BotFramework = () => {
         />
       )}
 
-      {/* Geometric decorative circles — light only */}
-      {isLight && (
-        <>
-          <div
-            className="absolute -top-20 -left-20 w-72 h-72 rounded-full border border-[#EFEDE2] opacity-50 pointer-events-none"
-          />
-          <div
-            className="absolute top-1/3 -right-16 w-56 h-56 rounded-full border border-[#EFEDE2] opacity-40 pointer-events-none"
-          />
-          <div
-            className="absolute -bottom-12 left-1/4 w-40 h-40 rounded-full border border-[#EFEDE2] opacity-30 pointer-events-none"
-          />
-          <div
-            className="absolute top-16 right-1/3 w-24 h-24 rounded-full opacity-20 pointer-events-none"
-            style={{ backgroundColor: phases[activePhase].editorialColor }}
-          />
-          <div
-            className="absolute bottom-24 left-[15%] w-16 h-16 rounded-full opacity-15 pointer-events-none"
-            style={{ backgroundColor: phases[activePhase].editorialColor }}
-          />
-        </>
-      )}
-
       <div className="container relative z-10">
         {/* Header */}
         <motion.div

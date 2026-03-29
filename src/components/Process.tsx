@@ -112,12 +112,6 @@ const Process = () => {
       className="pt-20 pb-20 md:pt-28 md:pb-28 relative overflow-hidden"
       ref={ref}
     >
-      {/* Geometric decorative circles */}
-      <div className="absolute top-16 left-10 w-64 h-64 rounded-full border border-[#EFEDE2] opacity-40 pointer-events-none" />
-      <div className="absolute bottom-20 right-16 w-44 h-44 rounded-full border border-[#EFEDE2] opacity-30 pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-[#EFEDE2]/50 opacity-20 pointer-events-none" />
-      <div className="absolute top-32 right-1/4 w-5 h-5 rounded-full bg-[#00C17A]/10 pointer-events-none" />
-      <div className="absolute bottom-40 left-1/3 w-3 h-3 rounded-full bg-[#0072F9]/10 pointer-events-none" />
 
       <div className="container relative z-10">
         {/* Header */}

@@ -82,39 +82,6 @@ const About = () => {
   // Light theme: luxury editorial redesign
   return (
     <section id="about" className="pt-20 pb-20 md:pt-28 md:pb-28 relative overflow-hidden" ref={ref}>
-      {/* Background dot grid texture */}
-      <div
-        className="absolute inset-0 opacity-[0.35] pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, #494C6B 0.7px, transparent 0.7px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-
-      {/* Geometric accent - top right partial circle */}
-      <motion.div
-        className="absolute -top-32 -right-32 w-[380px] h-[380px] rounded-full border-[1.5px] border-[#00C17A] opacity-[0.12] pointer-events-none"
-        initial={isAnimated ? { scale: 0.7, opacity: 0 } : undefined}
-        animate={isAnimated && inView ? { scale: 1, opacity: 0.12 } : undefined}
-        transition={isAnimated ? { duration: 1.2, ease: "easeOut" } : undefined}
-      />
-
-      {/* Geometric accent - bottom left partial circle */}
-      <motion.div
-        className="absolute -bottom-48 -left-48 w-[500px] h-[500px] rounded-full border-[1.5px] border-[#0072F9] opacity-[0.08] pointer-events-none"
-        initial={isAnimated ? { scale: 0.7, opacity: 0 } : undefined}
-        animate={isAnimated && inView ? { scale: 1, opacity: 0.08 } : undefined}
-        transition={isAnimated ? { duration: 1.4, delay: 0.2, ease: "easeOut" } : undefined}
-      />
-
-      {/* Small geometric accent - mid left */}
-      <motion.div
-        className="absolute top-1/2 -translate-y-1/2 -left-16 w-[180px] h-[180px] rounded-full border border-[#FFBC0A] opacity-[0.10] pointer-events-none"
-        initial={isAnimated ? { scale: 0.5, opacity: 0 } : undefined}
-        animate={isAnimated && inView ? { scale: 1, opacity: 0.10 } : undefined}
-        transition={isAnimated ? { duration: 1, delay: 0.4, ease: "easeOut" } : undefined}
-      />
-
       <div className="container relative z-10">
         {/* Tagline badge */}
         <motion.div
@@ -186,10 +153,6 @@ const About = () => {
             className="md:col-span-7 relative group"
           >
             <div className="relative bg-white/70 backdrop-blur-sm border border-[#EFEDE2] rounded-2xl p-10 md:p-14 overflow-hidden h-full flex flex-col justify-center">
-              {/* Decorative geometric circle accent */}
-              <div className="absolute -bottom-20 -left-20 w-[240px] h-[240px] rounded-full border-2 border-[#00C17A] opacity-[0.08] pointer-events-none group-hover:opacity-[0.14] transition-opacity duration-700" />
-              <div className="absolute -bottom-12 -left-12 w-[160px] h-[160px] rounded-full border border-[#00C17A] opacity-[0.06] pointer-events-none" />
-
               <div className="relative">
                 <div className="relative inline-block mb-6">
                   <span className="text-7xl md:text-8xl lg:text-9xl font-black text-[#2B2D3F] relative z-10 leading-none">
