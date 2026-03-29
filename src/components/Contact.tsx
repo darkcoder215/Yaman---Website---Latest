@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Mail, Phone, Send, CheckCircle } from "lucide-react";
+import { Mail, Phone, Send, CheckCircle, Clock } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -41,11 +41,25 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="pt-14 pb-14 md:pt-20 md:pb-20 relative" ref={ref}>
+    <section
+      id="contact"
+      className={isLight ? "pt-20 pb-20 md:pt-28 md:pb-28 relative overflow-hidden bg-[#F7F4EE]" : "pt-14 pb-14 md:pt-20 md:pb-20 relative"}
+      ref={ref}
+    >
       {!isLight && (
         <>
           <div className="absolute right-1/4 bottom-0 w-[400px] h-[400px] bg-primary glow-orb animate-pulse-soft" />
           <div className="absolute left-1/4 top-1/2 w-[300px] h-[300px] bg-secondary glow-orb animate-pulse-soft" />
+        </>
+      )}
+
+      {/* Geometric decorative circles — light theme */}
+      {isLight && (
+        <>
+          <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full border border-[#EFEDE2] pointer-events-none" />
+          <div className="absolute -bottom-32 -left-32 w-[520px] h-[520px] rounded-full border border-[#EFEDE2] pointer-events-none" />
+          <div className="absolute top-1/3 right-[8%] w-[180px] h-[180px] rounded-full bg-[#00C17A]/[0.04] pointer-events-none" />
+          <div className="absolute bottom-[15%] left-[5%] w-[100px] h-[100px] rounded-full bg-[#0072F9]/[0.04] pointer-events-none" />
         </>
       )}
 
@@ -68,11 +82,28 @@ const Contact = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-14"
+          className={isLight ? "text-center mb-16" : "text-center mb-14"}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-5">
-            يسعدنا تواصلك 🤝
+          {/* Tagline badge — light only */}
+          {isLight && (
+            <span className="inline-block mb-5 px-5 py-2 rounded-full border border-[#EFEDE2] bg-white/60 text-xs font-semibold tracking-widest text-[#494C6B] uppercase">
+              تواصل &mdash; GET IN TOUCH
+            </span>
+          )}
+
+          <h2 className={
+            isLight
+              ? "text-4xl md:text-6xl font-black text-[#2B2D3F] mb-5 leading-tight"
+              : "text-3xl md:text-5xl font-bold mb-5"
+          }>
+            {isLight ? "يسعدنا تواصلك" : "يسعدنا تواصلك 🤝"}
           </h2>
+
+          {isLight && (
+            <p className="text-[#494C6B] text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+              أخبرنا عن مشروعك وسنعود إليك خلال يوم عمل واحد
+            </p>
+          )}
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -87,43 +118,71 @@ const Contact = () => {
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                className="card-premium p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px]"
+                className={
+                  isLight
+                    ? "bg-white rounded-3xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px] border border-[#EFEDE2]"
+                    : "card-premium p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px]"
+                }
               >
                 <motion.div
                   animate={isAnimated ? { scale: [1, 1.1, 1] } : undefined}
                   transition={isAnimated ? { duration: 1.5, repeat: Infinity, ease: "easeInOut" } : undefined}
+                  className={isLight ? "w-20 h-20 rounded-full bg-[#00C17A]/10 flex items-center justify-center mb-6" : undefined}
                 >
-                  <CheckCircle className={`w-16 h-16 mb-6 ${isLight ? "text-[#00C17A]" : "text-emerald-400"}`} />
+                  <CheckCircle className={`${isLight ? "w-10 h-10 text-[#00C17A]" : "w-16 h-16 mb-6 text-emerald-400"}`} />
                 </motion.div>
-                <h3 className="text-2xl font-bold mb-3 text-foreground">شكرًا لتواصلك!</h3>
-                <p className={isLight ? "text-[#494C6B]" : "text-muted-foreground"}>
+                <h3 className={
+                  isLight
+                    ? "text-2xl md:text-3xl font-black mb-3 text-[#2B2D3F]"
+                    : "text-2xl font-bold mb-3 text-foreground"
+                }>شكرًا لتواصلك!</h3>
+                <p className={isLight ? "text-[#494C6B] text-base md:text-lg" : "text-muted-foreground"}>
                   تم استلام طلبك وسيتواصل معك فريقنا خلال 24 ساعة.
                 </p>
                 <Button
                   variant="outline"
-                  className="mt-8"
+                  className={
+                    isLight
+                      ? "mt-8 rounded-full px-8 py-3 border-[#EFEDE2] text-[#2B2D3F] font-bold hover:bg-[#F7F4EE]"
+                      : "mt-8"
+                  }
                   onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", service: "", message: "" }); }}
                 >
                   إرسال طلب آخر
                 </Button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="card-premium p-6 md:p-8 space-y-5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <form
+                onSubmit={handleSubmit}
+                className={
+                  isLight
+                    ? "bg-white rounded-3xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-8 md:p-12 space-y-6 border border-[#EFEDE2]"
+                    : "card-premium p-6 md:p-8 space-y-5"
+                }
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">الاسم <span className="text-destructive">*</span></label>
+                    <label className={
+                      isLight
+                        ? "text-sm md:text-base font-bold text-[#2B2D3F]"
+                        : "text-sm font-medium text-foreground"
+                    }>الاسم <span className="text-destructive">*</span></label>
                     <Input
                       placeholder="اسمك الكامل"
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className={isLight
-                        ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50"
+                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-xl"
                         : "bg-muted/50 border-border/50 focus:border-primary/50"
                       }
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">البريد الإلكتروني <span className="text-destructive">*</span></label>
+                    <label className={
+                      isLight
+                        ? "text-sm md:text-base font-bold text-[#2B2D3F]"
+                        : "text-sm font-medium text-foreground"
+                    }>البريد الإلكتروني <span className="text-destructive">*</span></label>
                     <Input
                       type="email"
                       placeholder="email@example.com"
@@ -131,16 +190,20 @@ const Contact = () => {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className={`text-left ${isLight
-                        ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50"
+                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-xl"
                         : "bg-muted/50 border-border/50 focus:border-primary/50"
                       }`}
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">رقم الجوال</label>
+                    <label className={
+                      isLight
+                        ? "text-sm md:text-base font-bold text-[#2B2D3F]"
+                        : "text-sm font-medium text-foreground"
+                    }>رقم الجوال</label>
                     <Input
                       type="tel"
                       placeholder="05XXXXXXXX"
@@ -148,19 +211,23 @@ const Contact = () => {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       className={`text-left ${isLight
-                        ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50"
+                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-xl"
                         : "bg-muted/50 border-border/50 focus:border-primary/50"
                       }`}
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">الخدمة المطلوبة</label>
+                    <label className={
+                      isLight
+                        ? "text-sm md:text-base font-bold text-[#2B2D3F]"
+                        : "text-sm font-medium text-foreground"
+                    }>الخدمة المطلوبة</label>
                     <select
                       value={form.service}
                       onChange={(e) => setForm({ ...form, service: e.target.value })}
-                      className={`flex h-10 w-full rounded-md border px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                      className={`flex h-12 w-full rounded-xl border px-3 py-2 text-base text-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                         isLight
-                          ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50 focus:ring-[#00C17A]/20 focus:ring-offset-white"
+                          ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 focus:ring-[#00C17A]/20 focus:ring-offset-white"
                           : "bg-muted/50 border-border/50 focus:border-primary/50 focus:ring-ring focus:ring-offset-background"
                       }`}
                     >
@@ -173,14 +240,18 @@ const Contact = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">رسالتك <span className="text-destructive">*</span></label>
+                  <label className={
+                    isLight
+                      ? "text-sm md:text-base font-bold text-[#2B2D3F]"
+                      : "text-sm font-medium text-foreground"
+                  }>رسالتك <span className="text-destructive">*</span></label>
                   <Textarea
                     placeholder="أخبرنا عن فكرتك أو مشروعك..."
                     rows={5}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className={`resize-none ${isLight
-                      ? "bg-[#F7F4EE] border-[#EFEDE2] focus:border-[#00C17A]/50"
+                      ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 text-base rounded-xl"
                       : "bg-muted/50 border-border/50 focus:border-primary/50"
                     }`}
                   />
@@ -193,9 +264,9 @@ const Contact = () => {
                   <Button
                     type="submit"
                     disabled={loading}
-                    className={`w-full h-12 font-semibold text-base transition-opacity ${
+                    className={`w-full h-14 font-bold text-base transition-opacity ${
                       isLight
-                        ? "bg-[#000000] text-white hover:bg-[#2B2D3F] rounded-full"
+                        ? "bg-[#000000] text-white hover:bg-[#2B2D3F] rounded-full px-10 text-lg"
                         : "bg-gradient-brand text-primary-foreground hover:opacity-90"
                     }`}
                   >
@@ -242,31 +313,50 @@ const Contact = () => {
                 key={item.href}
                 href={item.href}
                 whileHover={isAnimated ? { y: -4, transition: { duration: 0.3 } } : undefined}
-                className="card-premium p-5 flex items-center gap-4 group block"
+                className={
+                  isLight
+                    ? "bg-white rounded-2xl shadow-[0_2px_16px_rgba(0,0,0,0.05)] border border-[#EFEDE2] p-6 flex items-center gap-5 group block"
+                    : "card-premium p-5 flex items-center gap-4 group block"
+                }
               >
                 <motion.div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                  className={`flex items-center justify-center transition-all duration-500 ${
                     isLight
-                      ? "bg-[#00C17A]/10 group-hover:bg-[#00C17A]/20"
-                      : "bg-gradient-to-br from-primary/15 to-primary/5 group-hover:from-primary/25 group-hover:to-primary/10"
+                      ? "w-14 h-14 rounded-2xl bg-[#00C17A]/10 group-hover:bg-[#00C17A]/20"
+                      : "w-12 h-12 rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 group-hover:from-primary/25 group-hover:to-primary/10"
                   }`}
                   whileHover={isAnimated ? { rotate: [0, -5, 5, 0], transition: { duration: 0.4 } } : undefined}
                 >
-                  <item.icon className={`w-5 h-5 ${isLight ? "text-[#00C17A]" : "text-primary"}`} />
+                  <item.icon className={`${isLight ? "w-6 h-6 text-[#00C17A]" : "w-5 h-5 text-primary"}`} />
                 </motion.div>
                 <div>
-                  <p className={`text-xs mb-0.5 ${isLight ? "text-[#494C6B]" : "text-muted-foreground"}`}>{item.label}</p>
-                  <p className="font-medium text-sm text-foreground" dir="ltr">{item.value}</p>
+                  <p className={`mb-0.5 ${isLight ? "text-xs font-medium text-[#494C6B]" : "text-xs text-muted-foreground"}`}>{item.label}</p>
+                  <p className={`font-semibold ${isLight ? "text-base text-[#2B2D3F]" : "text-sm text-foreground font-medium"}`} dir="ltr">{item.value}</p>
                 </div>
               </motion.a>
             ))}
 
             <motion.div
-              className="card-premium p-5"
+              className={
+                isLight
+                  ? "bg-white rounded-2xl shadow-[0_2px_16px_rgba(0,0,0,0.05)] border border-[#EFEDE2] p-6"
+                  : "card-premium p-5"
+              }
               whileHover={isAnimated ? { y: -4, transition: { duration: 0.3 } } : undefined}
             >
-              <p className="text-sm font-semibold text-foreground mb-2">ساعات العمل</p>
-              <p className={`text-xs leading-relaxed ${isLight ? "text-[#494C6B]" : "text-muted-foreground"}`}>
+              <div className={isLight ? "flex items-center gap-3 mb-3" : ""}>
+                {isLight && (
+                  <div className="w-10 h-10 rounded-xl bg-[#0072F9]/10 flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-[#0072F9]" />
+                  </div>
+                )}
+                <p className={
+                  isLight
+                    ? "text-base font-bold text-[#2B2D3F]"
+                    : "text-sm font-semibold text-foreground mb-2"
+                }>ساعات العمل</p>
+              </div>
+              <p className={`leading-relaxed ${isLight ? "text-sm text-[#494C6B]" : "text-xs text-muted-foreground"}`}>
                 الأحد - الخميس<br />
                 9:00 صباحًا - 5:00 مساءً
               </p>

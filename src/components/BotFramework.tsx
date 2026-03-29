@@ -71,7 +71,15 @@ const BotFramework = () => {
   }, []);
 
   return (
-    <section id="bot-framework" className="pt-14 pb-14 md:pt-20 md:pb-20 relative overflow-hidden" ref={ref}>
+    <section
+      id="bot-framework"
+      className={`relative overflow-hidden ${
+        isLight
+          ? "pt-20 pb-20 md:pt-28 md:pb-28 bg-[#F7F4EE]"
+          : "pt-14 pb-14 md:pt-20 md:pb-20"
+      }`}
+      ref={ref}
+    >
       {/* Background orb — dark only */}
       {!isLight && (
         <motion.div
@@ -96,6 +104,29 @@ const BotFramework = () => {
         />
       )}
 
+      {/* Geometric decorative circles — light only */}
+      {isLight && (
+        <>
+          <div
+            className="absolute -top-20 -left-20 w-72 h-72 rounded-full border border-[#EFEDE2] opacity-50 pointer-events-none"
+          />
+          <div
+            className="absolute top-1/3 -right-16 w-56 h-56 rounded-full border border-[#EFEDE2] opacity-40 pointer-events-none"
+          />
+          <div
+            className="absolute -bottom-12 left-1/4 w-40 h-40 rounded-full border border-[#EFEDE2] opacity-30 pointer-events-none"
+          />
+          <div
+            className="absolute top-16 right-1/3 w-24 h-24 rounded-full opacity-20 pointer-events-none"
+            style={{ backgroundColor: phases[activePhase].editorialColor }}
+          />
+          <div
+            className="absolute bottom-24 left-[15%] w-16 h-16 rounded-full opacity-15 pointer-events-none"
+            style={{ backgroundColor: phases[activePhase].editorialColor }}
+          />
+        </>
+      )}
+
       <div className="container relative z-10">
         {/* Header */}
         <motion.div
@@ -104,7 +135,31 @@ const BotFramework = () => {
           transition={{ duration: 1 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-black mb-5">
+          {/* Tagline badge — light only */}
+          {isLight && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#EFEDE2] bg-white/80 backdrop-blur-sm mb-6"
+            >
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: phases[activePhase].editorialColor }}
+              />
+              <span className="text-xs font-bold tracking-widest text-[#494C6B] uppercase">
+                إطار العمل — BOT FRAMEWORK
+              </span>
+            </motion.div>
+          )}
+
+          <h2
+            className={`font-black mb-5 ${
+              isLight
+                ? "text-4xl md:text-6xl text-[#2B2D3F]"
+                : "text-3xl md:text-5xl"
+            }`}
+          >
             نبني، نشغّل، وننقل:
           </h2>
           <p className={`text-base md:text-lg max-w-2xl mx-auto ${isLight ? "text-[#494C6B]" : "text-muted-foreground"}`}>
@@ -130,7 +185,7 @@ const BotFramework = () => {
                 whileHover={isAnimated ? { scale: 1.1, y: -4 } : { scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
                 className={`relative group cursor-pointer transition-all duration-700 ${
-                  isActive ? "z-10" : "opacity-40 hover:opacity-70"
+                  isActive ? "z-10" : isLight ? "opacity-50 hover:opacity-75" : "opacity-40 hover:opacity-70"
                 }`}
               >
                 {/* Glow ring — dark only */}
@@ -153,43 +208,73 @@ const BotFramework = () => {
                   />
                 )}
 
-                <div
-                  className={`relative flex flex-col items-center gap-2 px-6 py-5 md:px-10 md:py-7 rounded-2xl border transition-all duration-500 ${
-                    isLight
-                      ? isActive
-                        ? "border-[#EFEDE2] bg-white shadow-md"
-                        : "border-[#EFEDE2] bg-white/50"
-                      : isActive
+                {/* Light theme: premium card with colored bottom border */}
+                {isLight ? (
+                  <div
+                    className={`relative flex flex-col items-center gap-3 px-8 py-6 md:px-12 md:py-9 rounded-2xl transition-all duration-500 ${
+                      isActive
+                        ? "bg-white shadow-xl border border-[#EFEDE2]"
+                        : "bg-white/40 border border-[#EFEDE2]/60"
+                    }`}
+                    style={
+                      isActive
+                        ? { borderBottomWidth: "4px", borderBottomColor: phase.editorialColor }
+                        : undefined
+                    }
+                  >
+                    <motion.span
+                      className={`text-5xl md:text-7xl font-black tracking-tighter transition-all duration-500 ${
+                        isActive ? "text-[#2B2D3F]" : "text-[#2B2D3F]/40"
+                      }`}
+                      animate={isAnimated && isActive ? { scale: [1, 1.05, 1] } : undefined}
+                      transition={isAnimated ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : undefined}
+                    >
+                      {phase.letter}
+                    </motion.span>
+                    <div className="flex items-center gap-2">
+                      <Icon
+                        className={`w-4 h-4 transition-colors duration-500 ${
+                          isActive ? "" : "text-[#494C6B]/50"
+                        }`}
+                        style={isActive ? { color: phase.editorialColor } : undefined}
+                      />
+                      <span
+                        className={`text-sm font-bold transition-colors duration-500 ${
+                          isActive ? "text-[#2B2D3F]" : "text-[#494C6B]/60"
+                        }`}
+                      >
+                        {phase.title}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  /* Dark theme: original styling */
+                  <div
+                    className={`relative flex flex-col items-center gap-2 px-6 py-5 md:px-10 md:py-7 rounded-2xl border transition-all duration-500 ${
+                      isActive
                         ? "border-primary/40 bg-card shadow-2xl shadow-primary/10"
                         : "border-border/30 bg-card/50"
-                  }`}
-                >
-                  <motion.span
-                    className={`text-4xl md:text-6xl font-black tracking-tighter transition-all duration-500 ${
-                      isLight
-                        ? "text-[#000000]"
-                        : `bg-clip-text text-transparent bg-gradient-to-br ${phase.color}`
                     }`}
-                    animate={isAnimated && isActive ? { scale: [1, 1.05, 1] } : undefined}
-                    transition={isAnimated ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : undefined}
                   >
-                    {phase.letter}
-                  </motion.span>
-                  <div className="flex items-center gap-1.5">
-                    <Icon className={`w-3.5 h-3.5 transition-colors duration-500 ${
-                      isLight
-                        ? isActive ? "text-[#00C17A]" : "text-[#494C6B]"
-                        : isActive ? "text-primary" : "text-muted-foreground"
-                    }`} />
-                    <span className={`text-xs font-bold transition-colors duration-500 ${
-                      isLight
-                        ? isActive ? "text-[#000000]" : "text-[#494C6B]"
-                        : isActive ? "text-foreground" : "text-muted-foreground"
-                    }`}>
-                      {phase.title}
-                    </span>
+                    <motion.span
+                      className={`text-4xl md:text-6xl font-black tracking-tighter transition-all duration-500 bg-clip-text text-transparent bg-gradient-to-br ${phase.color}`}
+                      animate={isAnimated && isActive ? { scale: [1, 1.05, 1] } : undefined}
+                      transition={isAnimated ? { duration: 2, repeat: Infinity, ease: "easeInOut" } : undefined}
+                    >
+                      {phase.letter}
+                    </motion.span>
+                    <div className="flex items-center gap-1.5">
+                      <Icon className={`w-3.5 h-3.5 transition-colors duration-500 ${
+                        isActive ? "text-primary" : "text-muted-foreground"
+                      }`} />
+                      <span className={`text-xs font-bold transition-colors duration-500 ${
+                        isActive ? "text-foreground" : "text-muted-foreground"
+                      }`}>
+                        {phase.title}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                )}
               </motion.button>
             );
           })}
@@ -203,78 +288,129 @@ const BotFramework = () => {
           transition={{ duration: isAnimated ? 0.9 : 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-3xl mx-auto"
         >
-          <div className="card-premium p-8 md:p-12 relative overflow-hidden">
-            {/* Top accent bar */}
-            <motion.div
-              className={`absolute top-0 left-0 h-1 ${
-                isLight ? "" : `bg-gradient-to-r ${phases[activePhase].color}`
-              }`}
-              style={isLight ? { backgroundColor: phases[activePhase].editorialColor } : undefined}
-              initial={isAnimated ? { width: 0 } : { width: "100%" }}
-              animate={{ width: "100%" }}
-              transition={isAnimated ? { delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] } : undefined}
-            />
+          {isLight ? (
+            /* Light theme: premium editorial card */
+            <div className="relative bg-white rounded-3xl p-10 md:p-14 border border-[#EFEDE2] shadow-lg overflow-hidden">
+              {/* Colored accent line at top */}
+              <motion.div
+                className="absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl"
+                style={{ backgroundColor: phases[activePhase].editorialColor }}
+                initial={isAnimated ? { scaleX: 0, transformOrigin: "right" } : { scaleX: 1 }}
+                animate={{ scaleX: 1 }}
+                transition={isAnimated ? { delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] } : undefined}
+              />
 
-            <div className="relative">
-              <div className="flex items-center gap-3 mb-4">
-                <motion.div
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                    isLight ? "" : `bg-gradient-to-br ${phases[activePhase].color}`
-                  }`}
-                  style={isLight ? { backgroundColor: phases[activePhase].editorialColor } : undefined}
-                  whileHover={isAnimated ? { rotate: [0, -10, 10, 0], transition: { duration: 0.5 } } : undefined}
-                >
-                  {(() => {
-                    const Icon = phases[activePhase].icon;
-                    return <Icon className="w-5 h-5 text-white" />;
-                  })()}
-                </motion.div>
-                <div>
-                  <h3 className="text-xl md:text-2xl font-black text-foreground">
-                    {phases[activePhase].titleAr}
-                  </h3>
-                  <p className={`text-xs font-medium ${isLight ? "text-[#494C6B]" : "text-muted-foreground"}`}>
-                    {phases[activePhase].title}
-                  </p>
+              <div className="relative">
+                <div className="flex items-center gap-4 mb-6">
+                  {/* Icon in larger colored circle */}
+                  <motion.div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                    style={{ backgroundColor: phases[activePhase].editorialColor }}
+                    whileHover={isAnimated ? { rotate: [0, -10, 10, 0], transition: { duration: 0.5 } } : undefined}
+                  >
+                    {(() => {
+                      const Icon = phases[activePhase].icon;
+                      return <Icon className="w-7 h-7 text-white" />;
+                    })()}
+                  </motion.div>
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-black text-[#2B2D3F]">
+                      {phases[activePhase].titleAr}
+                    </h3>
+                    <p className="text-sm font-semibold text-[#494C6B] tracking-wide">
+                      {phases[activePhase].title}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-base md:text-lg font-medium leading-relaxed mb-10 text-[#494C6B]">
+                  {phases[activePhase].description}
+                </p>
+
+                <div className="grid grid-cols-1 gap-3">
+                  {phases[activePhase].points.map((point, i) => (
+                    <motion.div
+                      key={point}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: isAnimated ? 0.2 + i * 0.15 : 0.1 + i * 0.1, duration: 0.5 }}
+                      whileHover={isAnimated ? { x: 4, transition: { duration: 0.2 } } : undefined}
+                      className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-[#F7F4EE]/70 border border-[#EFEDE2]"
+                    >
+                      <motion.div
+                        className="w-3 h-3 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: phases[activePhase].editorialColor }}
+                        animate={isAnimated ? { scale: [1, 1.4, 1] } : undefined}
+                        transition={isAnimated ? { delay: 0.3 + i * 0.15, duration: 0.4 } : undefined}
+                      />
+                      <span className="text-base font-semibold text-[#2B2D3F]">
+                        {point}
+                      </span>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
+            </div>
+          ) : (
+            /* Dark theme: original card */
+            <div className="card-premium p-8 md:p-12 relative overflow-hidden">
+              {/* Top accent bar */}
+              <motion.div
+                className={`absolute top-0 left-0 h-1 bg-gradient-to-r ${phases[activePhase].color}`}
+                initial={isAnimated ? { width: 0 } : { width: "100%" }}
+                animate={{ width: "100%" }}
+                transition={isAnimated ? { delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] } : undefined}
+              />
 
-              <p className={`text-sm md:text-base font-medium leading-relaxed mb-8 ${
-                isLight ? "text-[#494C6B]" : "text-foreground/80"
-              }`}>
-                {phases[activePhase].description}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {phases[activePhase].points.map((point, i) => (
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-4">
                   <motion.div
-                    key={point}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: isAnimated ? 0.2 + i * 0.15 : 0.1 + i * 0.1, duration: 0.5 }}
-                    whileHover={isAnimated ? { x: 4, transition: { duration: 0.2 } } : undefined}
-                    className={`flex items-center gap-3 p-3 rounded-xl border ${
-                      isLight
-                        ? "bg-[#F7F4EE] border-[#EFEDE2]"
-                        : "bg-muted/30 border-border/20"
-                    }`}
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br ${phases[activePhase].color}`}
+                    whileHover={isAnimated ? { rotate: [0, -10, 10, 0], transition: { duration: 0.5 } } : undefined}
                   >
-                    <motion.div
-                      className={`w-2 h-2 rounded-full flex-shrink-0 ${
-                        isLight ? "" : `bg-gradient-to-br ${phases[activePhase].color}`
-                      }`}
-                      style={isLight ? { backgroundColor: phases[activePhase].editorialColor } : undefined}
-                      animate={isAnimated ? { scale: [1, 1.4, 1] } : undefined}
-                      transition={isAnimated ? { delay: 0.3 + i * 0.15, duration: 0.4 } : undefined}
-                    />
-                    <span className={`text-sm font-semibold ${isLight ? "text-[#2B2D3F]" : "text-foreground/80"}`}>
-                      {point}
-                    </span>
+                    {(() => {
+                      const Icon = phases[activePhase].icon;
+                      return <Icon className="w-5 h-5 text-white" />;
+                    })()}
                   </motion.div>
-                ))}
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-black text-foreground">
+                      {phases[activePhase].titleAr}
+                    </h3>
+                    <p className="text-xs font-medium text-muted-foreground">
+                      {phases[activePhase].title}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-sm md:text-base font-medium leading-relaxed mb-8 text-foreground/80">
+                  {phases[activePhase].description}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {phases[activePhase].points.map((point, i) => (
+                    <motion.div
+                      key={point}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: isAnimated ? 0.2 + i * 0.15 : 0.1 + i * 0.1, duration: 0.5 }}
+                      whileHover={isAnimated ? { x: 4, transition: { duration: 0.2 } } : undefined}
+                      className="flex items-center gap-3 p-3 rounded-xl border bg-muted/30 border-border/20"
+                    >
+                      <motion.div
+                        className={`w-2 h-2 rounded-full flex-shrink-0 bg-gradient-to-br ${phases[activePhase].color}`}
+                        animate={isAnimated ? { scale: [1, 1.4, 1] } : undefined}
+                        transition={isAnimated ? { delay: 0.3 + i * 0.15, duration: 0.4 } : undefined}
+                      />
+                      <span className="text-sm font-semibold text-foreground/80">
+                        {point}
+                      </span>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </motion.div>
 
         {/* Navigation dots */}

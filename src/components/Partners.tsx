@@ -41,9 +41,34 @@ const Partners = () => {
   const { isLight, isAnimated } = useTheme();
 
   return (
-    <section id="partners" className="pt-14 pb-14 md:pt-20 md:pb-20 relative" ref={ref}>
+    <section
+      id="partners"
+      className={`relative overflow-hidden ${
+        isLight ? "pt-20 pb-20 md:pt-28 md:pb-28" : "pt-14 pb-14 md:pt-20 md:pb-20"
+      }`}
+      ref={ref}
+    >
+      {/* Dark theme glow orb */}
       {!isLight && (
         <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary glow-orb animate-pulse-soft" />
+      )}
+
+      {/* Light theme decorative geometric circles */}
+      {isLight && (
+        <>
+          <div
+            className="absolute -top-32 -right-32 w-[320px] h-[320px] rounded-full border border-[#EFEDE2] opacity-40 pointer-events-none"
+          />
+          <div
+            className="absolute -bottom-24 -left-24 w-[240px] h-[240px] rounded-full border border-[#EFEDE2] opacity-30 pointer-events-none"
+          />
+          <div
+            className="absolute top-1/3 -left-16 w-[160px] h-[160px] rounded-full border border-[#00C17A]/10 opacity-50 pointer-events-none"
+          />
+          <div
+            className="absolute bottom-1/4 -right-20 w-[200px] h-[200px] rounded-full border-2 border-[#EFEDE2] opacity-20 pointer-events-none"
+          />
+        </>
       )}
 
       <div className="container relative z-10">
@@ -53,10 +78,54 @@ const Partners = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-10 md:mb-16"
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-5">عمل فريقنا مع</h2>
-          <p className={`text-base md:text-lg max-w-2xl mx-auto ${isLight ? "text-[#494C6B]" : "text-muted-foreground"}`}>
-            عملنا مع أبرز الجهات في القطاعين الحكومي والخاص
+          {/* Tagline badge - light theme only */}
+          {isLight && (
+            <div className="flex items-center justify-center gap-2 mb-5">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00C17A]/10 border border-[#00C17A]/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00C17A]" />
+                <span className="text-xs font-semibold tracking-wide text-[#00C17A]">
+                  شركاؤنا — TRUSTED BY
+                </span>
+              </span>
+            </div>
+          )}
+
+          <h2
+            className={
+              isLight
+                ? "text-4xl md:text-6xl font-black mb-5 text-[#2B2D3F]"
+                : "text-3xl md:text-5xl font-bold mb-5"
+            }
+          >
+            عمل فريقنا مع
+          </h2>
+
+          <p
+            className={`text-base md:text-lg max-w-2xl mx-auto ${
+              isLight ? "text-[#494C6B]" : "text-muted-foreground"
+            }`}
+          >
+            {isLight
+              ? "نفخر بالعمل جنبًا إلى جنب مع أبرز المؤسسات والجهات الرائدة في القطاعين الحكومي والخاص لبناء منتجات رقمية استثنائية"
+              : "عملنا مع أبرز الجهات في القطاعين الحكومي والخاص"}
           </p>
+
+          {/* Count indicator - light theme only */}
+          {isLight && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6"
+            >
+              <span className="text-sm font-bold text-[#2B2D3F]">
+                15+
+              </span>
+              <span className="text-sm text-[#494C6B] mr-1.5">
+                {" "}شريك موثوق
+              </span>
+            </motion.div>
+          )}
         </motion.div>
 
         <div className="flex flex-wrap justify-center gap-3 md:gap-5 max-w-5xl mx-auto px-2 md:px-0">
@@ -75,7 +144,11 @@ const Partners = () => {
                 scale: 1.03,
                 transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
               } : undefined}
-              className={`relative w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[85px] md:min-h-[110px] group rounded-2xl`}
+              className={`relative group ${
+                isLight
+                  ? "w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[100px] md:min-h-[120px] rounded-3xl"
+                  : "w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[85px] md:min-h-[110px] rounded-2xl"
+              }`}
               style={{ animationDelay: `${i * 0.4}s` }}
             >
               {/* Circulating pulse dot border — dark theme only */}
@@ -91,26 +164,32 @@ const Partners = () => {
               )}
 
               {/* Card background */}
-              <div className={`absolute inset-[1px] rounded-2xl z-[1] ${
-                isLight ? "bg-white" : "bg-gradient-to-b from-card to-background"
+              <div className={`absolute inset-[1px] z-[1] ${
+                isLight
+                  ? "bg-white rounded-3xl"
+                  : "bg-gradient-to-b from-card to-background rounded-2xl"
               }`} />
 
               {/* Border */}
-              <div className={`absolute inset-0 rounded-2xl border transition-all duration-300 ${
+              <div className={`absolute inset-0 transition-all duration-300 ${
                 isLight
                   ? isAnimated
-                    ? "border-[#EFEDE2] group-hover:border-[#00C17A]/30 group-hover:shadow-md group-hover:shadow-[#00C17A]/5"
-                    : "border-[#EFEDE2]"
-                  : "border-border/30"
+                    ? "rounded-3xl border border-[#EFEDE2] group-hover:border-[#00C17A]/30 group-hover:shadow-lg group-hover:shadow-[#00C17A]/[0.06]"
+                    : "rounded-3xl border border-[#EFEDE2]"
+                  : "rounded-2xl border border-border/30"
               }`} />
 
               {/* Content */}
-              <div className="relative z-[2] flex items-center justify-center h-full p-3 md:p-6">
+              <div className={`relative z-[2] flex items-center justify-center h-full ${
+                isLight ? "p-4 md:p-7" : "p-3 md:p-6"
+              }`}>
                 <img
                   src={company.logo}
                   alt={company.name}
-                  className={`h-12 md:h-20 w-auto max-w-[90%] object-contain transition-all duration-300 ${
-                    isLight ? "opacity-70 group-hover:opacity-100" : ""
+                  className={`w-auto max-w-[90%] object-contain transition-all duration-300 ${
+                    isLight
+                      ? "h-12 md:h-20 opacity-60 group-hover:opacity-100"
+                      : "h-12 md:h-20"
                   }`}
                   style={{ imageRendering: 'auto' }}
                 />
