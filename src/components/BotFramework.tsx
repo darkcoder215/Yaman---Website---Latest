@@ -267,10 +267,10 @@ const BotFramework = () => {
         >
           {isLight ? (
             /* Light theme: premium editorial card */
-            <div className="relative bg-white rounded-3xl p-10 md:p-14 border border-[#EFEDE2] shadow-lg overflow-hidden">
+            <div className="relative bg-white rounded-2xl p-10 md:p-14 border border-[#EFEDE2] shadow-lg overflow-hidden">
               {/* Colored accent line at top */}
               <motion.div
-                className="absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl"
+                className="absolute top-0 left-0 right-0 h-1.5 rounded-t-2xl"
                 style={{ backgroundColor: phases[activePhase].editorialColor }}
                 initial={isAnimated ? { scaleX: 0, transformOrigin: "right" } : { scaleX: 1 }}
                 animate={{ scaleX: 1 }}
@@ -312,14 +312,16 @@ const BotFramework = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: isAnimated ? 0.2 + i * 0.15 : 0.1 + i * 0.1, duration: 0.5 }}
                       whileHover={isAnimated ? { x: 4, transition: { duration: 0.2 } } : undefined}
-                      className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-[#F7F4EE]/70 border border-[#EFEDE2]"
+                      className="flex items-center gap-4 p-4 md:p-5 rounded-xl bg-[#F7F4EE]/70 border border-[#EFEDE2]"
                     >
                       <motion.div
-                        className="w-3 h-3 rounded-full flex-shrink-0"
+                        className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center"
                         style={{ backgroundColor: phases[activePhase].editorialColor }}
-                        animate={isAnimated ? { scale: [1, 1.4, 1] } : undefined}
+                        animate={isAnimated ? { scale: [1, 1.1, 1] } : undefined}
                         transition={isAnimated ? { delay: 0.3 + i * 0.15, duration: 0.4 } : undefined}
-                      />
+                      >
+                        <span className="text-xs font-bold text-white">{i + 1}</span>
+                      </motion.div>
                       <span className="text-base font-semibold text-[#2B2D3F]">
                         {point}
                       </span>

@@ -129,7 +129,7 @@ const Partners = () => {
               } : undefined}
               className={`relative group ${
                 isLight
-                  ? "w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[100px] md:min-h-[120px] rounded-3xl"
+                  ? "w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[100px] md:min-h-[120px] rounded-2xl"
                   : "w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[85px] md:min-h-[110px] rounded-2xl"
               }`}
               style={{ animationDelay: `${i * 0.4}s` }}
@@ -149,7 +149,7 @@ const Partners = () => {
               {/* Card background */}
               <div className={`absolute inset-[1px] z-[1] ${
                 isLight
-                  ? "bg-white rounded-3xl"
+                  ? "bg-white rounded-2xl"
                   : "bg-gradient-to-b from-card to-background rounded-2xl"
               }`} />
 
@@ -157,8 +157,8 @@ const Partners = () => {
               <div className={`absolute inset-0 transition-all duration-300 ${
                 isLight
                   ? isAnimated
-                    ? "rounded-3xl border border-[#EFEDE2] group-hover:border-[#00C17A]/30 group-hover:shadow-lg group-hover:shadow-[#00C17A]/[0.06]"
-                    : "rounded-3xl border border-[#EFEDE2]"
+                    ? "rounded-2xl border border-[#EFEDE2] group-hover:border-[#00C17A]/30 group-hover:shadow-lg group-hover:shadow-[#00C17A]/[0.06]"
+                    : "rounded-2xl border border-[#EFEDE2]"
                   : "rounded-2xl border border-border/30"
               }`} />
 

@@ -23,7 +23,7 @@ const CtaBanner = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className={`relative overflow-hidden text-center ${
             isLight
-              ? "bg-[#000000] rounded-[2rem] p-12 md:p-20"
+              ? "bg-[#000000] rounded-2xl p-12 md:p-20"
               : "bg-gradient-to-br from-primary/20 via-card to-secondary/20 border border-border/30 rounded-3xl p-10 md:p-16"
           }`}
         >

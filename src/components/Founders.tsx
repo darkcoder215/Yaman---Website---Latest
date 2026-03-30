@@ -139,7 +139,7 @@ const Founders = () => {
                   whileHover={isAnimated ? { scale: 1.06, y: -4 } : { scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   className={`relative flex-1 max-w-[250px] overflow-hidden focus:outline-none ${
-                    isLight ? "rounded-3xl" : "rounded-2xl"
+                    isLight ? "rounded-2xl" : "rounded-2xl"
                   } ${
                     isLight
                       ? isActive
@@ -154,7 +154,7 @@ const Founders = () => {
                     src={founder.image}
                     alt={founder.name}
                     className={`w-full h-full object-cover transition-all duration-500 ${
-                      isLight ? "rounded-3xl" : ""
+                      isLight ? "rounded-2xl" : ""
                     }`}
                     style={{
                       filter: isActive
@@ -193,7 +193,7 @@ const Founders = () => {
                       layoutId="active-ring"
                       className={`absolute inset-0 pointer-events-none ${
                         isLight
-                          ? "rounded-3xl border-[5px] border-[#00C17A] shadow-lg shadow-[#00C17A]/20"
+                          ? "rounded-2xl border-[5px] border-[#00C17A] shadow-lg shadow-[#00C17A]/20"
                           : "rounded-2xl border-[6px] border-primary"
                       }`}
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -201,7 +201,7 @@ const Founders = () => {
                   )}
                   {/* Inactive subtle border — light only */}
                   {isLight && !isActive && (
-                    <div className="absolute inset-0 rounded-3xl border border-[#EFEDE2] pointer-events-none" />
+                    <div className="absolute inset-0 rounded-2xl border border-[#EFEDE2] pointer-events-none" />
                   )}
 
                   {/* Animated shimmer on hover — animated only */}
@@ -283,7 +283,7 @@ const Founders = () => {
             transition={{ duration: isAnimated ? 0.5 : 0.35, ease: "easeOut" }}
             className={
               isLight
-                ? "mt-10 max-w-2xl mx-auto card-premium bg-white rounded-3xl border border-[#EFEDE2] px-8 py-8 md:px-10 md:py-10 shadow-sm text-center"
+                ? "mt-10 max-w-2xl mx-auto card-premium bg-white rounded-2xl border border-[#EFEDE2] px-8 py-8 md:px-10 md:py-10 shadow-sm text-center"
                 : "text-center mt-8 max-w-xl mx-auto"
             }
           >

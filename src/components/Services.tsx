@@ -117,7 +117,7 @@ const Services = () => {
                     ? { y: -4, transition: { duration: 0.4 } }
                     : undefined
                 }
-                className="group relative overflow-hidden rounded-3xl bg-white border border-[#EFEDE2] shadow-[0_2px_24px_rgba(0,0,0,0.04)]"
+                className="group relative overflow-hidden rounded-2xl bg-white border border-[#EFEDE2] shadow-[0_2px_24px_rgba(0,0,0,0.04)]"
               >
                 {/* Colored accent border */}
                 <div
@@ -192,10 +192,10 @@ const Services = () => {
                           }
                         >
                           <motion.div
-                            className="w-2 h-2 rounded-full bg-[#00C17A] flex-shrink-0"
+                            className="w-6 h-6 rounded-full bg-[#00C17A] flex-shrink-0 flex items-center justify-center"
                             animate={
                               isAnimated
-                                ? { scale: [1, 1.5, 1] }
+                                ? { scale: [1, 1.1, 1] }
                                 : undefined
                             }
                             transition={
@@ -203,7 +203,9 @@ const Services = () => {
                                 ? { delay: 0.6 + fi * 0.2, duration: 0.4 }
                                 : undefined
                             }
-                          />
+                          >
+                            <span className="text-[10px] font-bold text-white">{fi + 1}</span>
+                          </motion.div>
                           {f}
                         </motion.div>
                       ))}

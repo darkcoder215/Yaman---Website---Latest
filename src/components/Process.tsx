@@ -189,7 +189,7 @@ const Process = () => {
                     relative mr-16
                     md:mr-0 md:w-[calc(50%-40px)]
                     ${isEven ? "md:mr-auto md:ml-0" : "md:ml-auto md:mr-0"}
-                    bg-white rounded-3xl p-8 md:p-10
+                    bg-white rounded-2xl p-8 md:p-10
                     border border-[#EFEDE2]
                     shadow-[0_2px_20px_rgba(0,0,0,0.04)]
                     transition-shadow duration-300

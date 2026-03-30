@@ -111,7 +111,7 @@ const Contact = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 className={
                   isLight
-                    ? "bg-white rounded-3xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px] border border-[#EFEDE2]"
+                    ? "bg-white rounded-2xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px] border border-[#EFEDE2]"
                     : "card-premium p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px]"
                 }
               >
@@ -147,7 +147,7 @@ const Contact = () => {
                 onSubmit={handleSubmit}
                 className={
                   isLight
-                    ? "bg-white rounded-3xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-8 md:p-12 space-y-6 border border-[#EFEDE2]"
+                    ? "bg-white rounded-2xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-8 md:p-12 space-y-6 border border-[#EFEDE2]"
                     : "card-premium p-6 md:p-8 space-y-5"
                 }
               >

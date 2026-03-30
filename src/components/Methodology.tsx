@@ -200,11 +200,11 @@ const LightCard = ({
           ? { y: -6, transition: { duration: 0.35 } }
           : undefined
       }
-      className="group relative overflow-hidden rounded-3xl bg-white border border-[#EFEDE2] p-8 md:p-10 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/[0.04]"
+      className="group relative overflow-hidden rounded-2xl bg-white border border-[#EFEDE2] p-8 md:p-10 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/[0.04]"
     >
       {/* Thick colored top accent bar */}
       <motion.div
-        className="absolute top-0 right-0 left-0 h-[3px] rounded-t-3xl"
+        className="absolute top-0 right-0 left-0 h-[3px] rounded-t-2xl"
         style={{ backgroundColor: s.editorialAccent }}
         initial={isAnimated ? { scaleX: 0 } : undefined}
         animate={isAnimated && inView ? { scaleX: 1 } : undefined}

@@ -141,7 +141,7 @@ const Vision = () => {
                   : undefined
               }
               whileHover={isAnimated ? { y: -6, transition: { duration: 0.35 } } : undefined}
-              className="relative overflow-hidden rounded-3xl bg-white border border-[#EFEDE2] p-8 md:p-10 group"
+              className="relative overflow-hidden rounded-2xl bg-white border border-[#EFEDE2] p-8 md:p-10 group"
             >
               {/* Right accent stripe */}
               <motion.div
@@ -194,7 +194,7 @@ const Vision = () => {
                       : undefined
                   }
                   whileHover={isAnimated ? { y: -6, transition: { duration: 0.35 } } : undefined}
-                  className="relative overflow-hidden rounded-3xl bg-white border border-[#EFEDE2] p-8 md:p-10 group"
+                  className="relative overflow-hidden rounded-2xl bg-white border border-[#EFEDE2] p-8 md:p-10 group"
                 >
                   {/* Right accent stripe */}
                   <motion.div
