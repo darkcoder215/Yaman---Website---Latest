@@ -35,100 +35,81 @@ const Hero = () => {
       <div className="container relative z-10 pt-28 pb-20">
         {/* Editorial: asymmetric layout with decorative element */}
         {isLight ? (
-          <div className="flex flex-col items-center gap-12 md:gap-16">
-            {/* Tagline badge */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-8 items-start">
+            {/* Right side (primary in RTL): Heading + description + CTA */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.7 }}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#000000]/[0.04] border border-[#000000]/[0.06]"
+              className="order-1 md:order-2 flex flex-col gap-8"
+              initial={isAnimated ? { opacity: 0, y: 30 } : undefined}
+              animate={isAnimated ? { opacity: 1, y: 0 } : undefined}
+              transition={isAnimated ? { delay: 0.3, duration: 0.9, ease: [0.22, 1, 0.36, 1] } : undefined}
             >
-              <span className="w-2 h-2 rounded-full bg-[#00C17A]" />
-              <span className="text-xs font-bold text-[#2B2D3F] tracking-wide">VENTURE STUDIO — SAUDI ARABIA</span>
-            </motion.div>
-
-            {/* Main headline — editorial magazine style */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="text-center max-w-3xl"
-            >
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#000000] leading-[1.1] tracking-tight mb-8">
+              <h1 className="text-5xl md:text-7xl font-black text-[#000000] leading-[1.15] tracking-tight">
                 {isAnimated ? (
                   <motion.span
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.8 }}
                   >
-                    استديو ابتكاري
+                    استديو ابتكاري وطني
                   </motion.span>
                 ) : (
-                  "استديو ابتكاري"
+                  "استديو ابتكاري وطني"
                 )}
-                <br />
-                <span className="relative inline-block mt-2">
-                  <span className="relative z-10">وطني</span>
-                  <motion.span
-                    className="absolute bottom-2 md:bottom-3 right-0 left-0 h-4 md:h-6 bg-[#00C17A]/20 -z-0 rounded-sm"
-                    initial={isAnimated ? { scaleX: 0 } : undefined}
-                    animate={isAnimated ? { scaleX: 1 } : undefined}
-                    transition={isAnimated ? { delay: 1, duration: 0.7, ease: [0.22, 1, 0.36, 1] } : undefined}
-                    style={isAnimated ? { transformOrigin: "right" } : undefined}
-                  />
-                </span>
               </h1>
 
               <motion.p
-                className="text-lg md:text-xl text-[#494C6B] leading-relaxed max-w-2xl mx-auto font-light"
+                className="text-lg md:text-xl text-[#6B6B6B] leading-relaxed max-w-lg font-light"
                 initial={isAnimated ? { opacity: 0, y: 15 } : undefined}
                 animate={isAnimated ? { opacity: 1, y: 0 } : undefined}
-                transition={isAnimated ? { delay: 1.2, duration: 0.8 } : undefined}
+                transition={isAnimated ? { delay: 0.9, duration: 0.8 } : undefined}
               >
                 لاندسكيب استديو شركات ناشئة سعودي يؤسس شركات ريادية داخلية في قطاعات التقنية المالية، إضافة إلى تأسيس وتشغيل الاستديوهات للشركات العائلية.
               </motion.p>
+
+              {/* CTA buttons */}
+              <motion.div
+                initial={isAnimated ? { opacity: 0, y: 20 } : undefined}
+                animate={isAnimated ? { opacity: 1, y: 0 } : undefined}
+                transition={isAnimated ? { delay: 1.3, duration: 0.6 } : undefined}
+                className="flex flex-col sm:flex-row gap-4 pt-2"
+              >
+                <motion.a
+                  href="#services"
+                  whileHover={isAnimated ? { scale: 1.04, y: -2 } : undefined}
+                  whileTap={isAnimated ? { scale: 0.97 } : undefined}
+                  className="px-10 py-4 rounded-full bg-[#000000] text-white font-bold text-base hover:shadow-xl hover:shadow-black/10 transition-all duration-300"
+                >
+                  اكتشف خدماتنا
+                </motion.a>
+                <motion.a
+                  href="#contact"
+                  whileHover={isAnimated ? { scale: 1.04, y: -2 } : undefined}
+                  whileTap={isAnimated ? { scale: 0.97 } : undefined}
+                  className="px-10 py-4 rounded-full bg-white text-[#000000] font-bold text-base border border-[#E5E0D8] hover:border-[#000000]/20 hover:shadow-lg transition-all duration-300"
+                >
+                  تواصل معنا
+                </motion.a>
+              </motion.div>
             </motion.div>
 
-            {/* CTA buttons — pill, premium feel */}
+            {/* Left side: Trust indicator stats stacked with thin dividers */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: isAnimated ? 1.6 : 0.7, duration: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <motion.a
-                href="#services"
-                whileHover={isAnimated ? { scale: 1.04, y: -2 } : undefined}
-                whileTap={isAnimated ? { scale: 0.97 } : undefined}
-                className="px-10 py-4 rounded-full bg-[#000000] text-white font-bold text-base hover:shadow-xl hover:shadow-black/10 transition-all duration-300"
-              >
-                اكتشف خدماتنا
-              </motion.a>
-              <motion.a
-                href="#contact"
-                whileHover={isAnimated ? { scale: 1.04, y: -2 } : undefined}
-                whileTap={isAnimated ? { scale: 0.97 } : undefined}
-                className="px-10 py-4 rounded-full bg-white text-[#000000] font-bold text-base border border-[#E5E0D8] hover:border-[#000000]/20 hover:shadow-lg transition-all duration-300"
-              >
-                تواصل معنا
-              </motion.a>
-            </motion.div>
-
-            {/* Trust indicator strip */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: isAnimated ? 2 : 1, duration: 0.8 }}
-              className="flex items-center gap-8 pt-4"
+              className="order-2 md:order-1 flex flex-col md:pt-4"
+              initial={isAnimated ? { opacity: 0 } : undefined}
+              animate={isAnimated ? { opacity: 1 } : undefined}
+              transition={isAnimated ? { delay: 1.6, duration: 0.8 } : undefined}
             >
               {[
                 { num: "+45", label: "عام خبرة" },
                 { num: "+15", label: "شريك" },
                 { num: "80%", label: "أتمتة" },
               ].map((stat, i) => (
-                <div key={i} className="text-center">
-                  <p className="text-2xl md:text-3xl font-black text-[#000000]">{stat.num}</p>
-                  <p className="text-xs text-[#494C6B] font-medium mt-0.5">{stat.label}</p>
+                <div key={i}>
+                  {i > 0 && <div className="h-px bg-[#EFEDE2]" />}
+                  <div className="py-6 flex items-baseline justify-between gap-4">
+                    <p className="text-3xl md:text-4xl font-black text-[#000000]">{stat.num}</p>
+                    <p className="text-sm text-[#6B6B6B] font-medium">{stat.label}</p>
+                  </div>
                 </div>
               ))}
             </motion.div>

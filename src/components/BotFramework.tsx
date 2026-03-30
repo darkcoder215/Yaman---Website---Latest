@@ -75,7 +75,7 @@ const BotFramework = () => {
       id="bot-framework"
       className={`relative overflow-hidden ${
         isLight
-          ? "pt-20 pb-20 md:pt-28 md:pb-28 bg-[#F7F4EE]"
+          ? "pt-16 pb-16 md:pt-24 md:pb-24"
           : "pt-14 pb-14 md:pt-20 md:pb-20"
       }`}
       ref={ref}
@@ -112,28 +112,10 @@ const BotFramework = () => {
           transition={{ duration: 1 }}
           className="text-center mb-16"
         >
-          {/* Tagline badge — light only */}
-          {isLight && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#EFEDE2] bg-white/80 backdrop-blur-sm mb-6"
-            >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: phases[activePhase].editorialColor }}
-              />
-              <span className="text-xs font-bold tracking-widest text-[#494C6B] uppercase">
-                إطار العمل — BOT FRAMEWORK
-              </span>
-            </motion.div>
-          )}
-
           <h2
             className={`font-black mb-5 ${
               isLight
-                ? "text-4xl md:text-6xl text-[#2B2D3F]"
+                ? "text-4xl md:text-5xl text-[#2B2D3F]"
                 : "text-3xl md:text-5xl"
             }`}
           >
@@ -188,7 +170,7 @@ const BotFramework = () => {
                 {/* Light theme: premium card with colored bottom border */}
                 {isLight ? (
                   <div
-                    className={`relative flex flex-col items-center gap-3 px-8 py-6 md:px-12 md:py-9 rounded-2xl transition-all duration-500 ${
+                    className={`relative flex flex-col items-center gap-3 px-8 py-6 md:px-12 md:py-9 rounded-xl transition-all duration-500 ${
                       isActive
                         ? "bg-white shadow-xl border border-[#EFEDE2]"
                         : "bg-white/40 border border-[#EFEDE2]/60"
@@ -267,10 +249,10 @@ const BotFramework = () => {
         >
           {isLight ? (
             /* Light theme: premium editorial card */
-            <div className="relative bg-white rounded-3xl p-10 md:p-14 border border-[#EFEDE2] shadow-lg overflow-hidden">
+            <div className="relative bg-white rounded-xl p-8 md:p-10 border border-[#EFEDE2] shadow-lg overflow-hidden">
               {/* Colored accent line at top */}
               <motion.div
-                className="absolute top-0 left-0 right-0 h-1.5 rounded-t-3xl"
+                className="absolute top-0 left-0 right-0 h-1.5 rounded-t-xl"
                 style={{ backgroundColor: phases[activePhase].editorialColor }}
                 initial={isAnimated ? { scaleX: 0, transformOrigin: "right" } : { scaleX: 1 }}
                 animate={{ scaleX: 1 }}
@@ -281,7 +263,7 @@ const BotFramework = () => {
                 <div className="flex items-center gap-4 mb-6">
                   {/* Icon in larger colored circle */}
                   <motion.div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                    className="w-14 h-14 rounded-xl flex items-center justify-center"
                     style={{ backgroundColor: phases[activePhase].editorialColor }}
                     whileHover={isAnimated ? { rotate: [0, -10, 10, 0], transition: { duration: 0.5 } } : undefined}
                   >
@@ -312,14 +294,16 @@ const BotFramework = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: isAnimated ? 0.2 + i * 0.15 : 0.1 + i * 0.1, duration: 0.5 }}
                       whileHover={isAnimated ? { x: 4, transition: { duration: 0.2 } } : undefined}
-                      className="flex items-center gap-4 p-4 md:p-5 rounded-2xl bg-[#F7F4EE]/70 border border-[#EFEDE2]"
+                      className="flex items-center gap-4 p-4 md:p-5 rounded-xl border border-[#EFEDE2]"
                     >
                       <motion.div
-                        className="w-3 h-3 rounded-full flex-shrink-0"
+                        className="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white"
                         style={{ backgroundColor: phases[activePhase].editorialColor }}
-                        animate={isAnimated ? { scale: [1, 1.4, 1] } : undefined}
+                        animate={isAnimated ? { scale: [1, 1.1, 1] } : undefined}
                         transition={isAnimated ? { delay: 0.3 + i * 0.15, duration: 0.4 } : undefined}
-                      />
+                      >
+                        {i + 1}
+                      </motion.div>
                       <span className="text-base font-semibold text-[#2B2D3F]">
                         {point}
                       </span>

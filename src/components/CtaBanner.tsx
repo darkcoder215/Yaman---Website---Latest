@@ -23,7 +23,7 @@ const CtaBanner = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className={`relative overflow-hidden text-center ${
             isLight
-              ? "bg-[#000000] rounded-[2rem] p-12 md:p-20"
+              ? "bg-[#000000] rounded-2xl p-12 md:p-20"
               : "bg-gradient-to-br from-primary/20 via-card to-secondary/20 border border-border/30 rounded-3xl p-10 md:p-16"
           }`}
         >
@@ -39,27 +39,7 @@ const CtaBanner = () => {
             />
           )}
 
-          {/* Animated background elements — animated editorial (light) */}
-          {isLight && isAnimated && (
-            <>
-              <motion.div
-                className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full opacity-[0.08]"
-                style={{
-                  background:
-                    "radial-gradient(circle, #00C17A 0%, transparent 70%)",
-                  animation: "blob-morph 8s ease-in-out infinite",
-                }}
-              />
-              <motion.div
-                className="absolute bottom-0 left-0 w-[250px] h-[250px] rounded-full opacity-[0.06]"
-                style={{
-                  background:
-                    "radial-gradient(circle, #0072F9 0%, transparent 70%)",
-                  animation: "blob-morph 10s ease-in-out infinite 3s",
-                }}
-              />
-            </>
-          )}
+          {/* Animated blobs removed for clean light theme */}
 
           {/* Dark theme glow */}
           {!isLight && (
@@ -151,7 +131,7 @@ const CtaBanner = () => {
             {/* Trust indicators — light theme only */}
             {isLight && (
               <motion.div
-                className="flex items-center justify-center gap-8 md:gap-12"
+                className="flex items-center justify-center gap-6"
                 initial={isAnimated ? { opacity: 0 } : undefined}
                 animate={
                   isAnimated && inView ? { opacity: 1 } : undefined
@@ -161,28 +141,9 @@ const CtaBanner = () => {
                 }
               >
                 {trustIndicators.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    className="flex flex-col items-center"
-                    initial={isAnimated ? { opacity: 0, y: 10 } : undefined}
-                    animate={
-                      isAnimated && inView
-                        ? { opacity: 1, y: 0 }
-                        : undefined
-                    }
-                    transition={
-                      isAnimated
-                        ? { delay: 1.0 + i * 0.15, duration: 0.5 }
-                        : undefined
-                    }
-                  >
-                    <span className="text-xl md:text-2xl font-bold text-[#00C17A]">
-                      {item.value}
-                    </span>
-                    <span className="text-xs md:text-sm text-white/40 mt-1">
-                      {item.label}
-                    </span>
-                  </motion.div>
+                  <span key={i} className="text-xs text-white/40">
+                    <span className="text-white/60 font-semibold">{item.value}</span>{" "}{item.label}
+                  </span>
                 ))}
               </motion.div>
             )}
