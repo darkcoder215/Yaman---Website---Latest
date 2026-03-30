@@ -46,7 +46,7 @@ const Methodology = () => {
       id="methodology"
       className={`relative overflow-hidden ${
         isLight
-          ? "pt-16 pb-16 md:pt-24 md:pb-24"
+          ? "pt-20 pb-20 md:pt-28 md:pb-28 bg-[#F7F4EE]"
           : "pt-14 pb-14 md:pt-20 md:pb-20"
       }`}
       ref={ref}
@@ -70,18 +70,42 @@ const Methodology = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className={`mb-16 md:mb-20 ${isLight ? "text-right" : "text-center"}`}
+          className="text-center mb-16 md:mb-20"
         >
+          {/* Tagline badge - light only */}
+          {isLight && (
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={inView ? { y: 0, opacity: 1 } : {}}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="inline-flex items-center gap-2 mb-6 px-5 py-2 rounded-full border border-[#EFEDE2] bg-white/60 backdrop-blur-sm"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#00C17A]" />
+              <span className="text-sm font-medium tracking-wide text-[#494C6B]">
+                استراتيجيتنا — STRATEGY
+              </span>
+            </motion.div>
+          )}
+
           <h2
             className={`font-black mb-5 ${
               isLight
-                ? "text-4xl md:text-5xl text-[#2B2D3F]"
+                ? "text-4xl md:text-6xl text-[#2B2D3F]"
                 : "text-3xl md:text-5xl font-bold"
             }`}
           >
             استراتيجيتنا في{" "}
             {isLight ? (
-              <span>تطوير المنتجات</span>
+              <span className="relative inline-block">
+                <span className="relative z-10">تطوير المنتجات</span>
+                <motion.span
+                  className="absolute bottom-1 right-0 left-0 h-3 md:h-5 bg-[#F9E59E] -z-0 rounded-sm"
+                  initial={isAnimated ? { scaleX: 0 } : undefined}
+                  animate={isAnimated && inView ? { scaleX: 1 } : undefined}
+                  transition={isAnimated ? { delay: 0.4, duration: 0.6 } : undefined}
+                  style={isAnimated ? { transformOrigin: "right" } : undefined}
+                />
+              </span>
             ) : (
               <span className="text-gradient">تطوير المنتجات</span>
             )}
@@ -176,11 +200,11 @@ const LightCard = ({
           ? { y: -6, transition: { duration: 0.35 } }
           : undefined
       }
-      className="group relative overflow-hidden rounded-xl bg-white border border-[#EFEDE2] p-6 md:p-8 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/[0.04]"
+      className="group relative overflow-hidden rounded-3xl bg-white border border-[#EFEDE2] p-8 md:p-10 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/[0.04]"
     >
       {/* Thick colored top accent bar */}
       <motion.div
-        className="absolute top-0 right-0 left-0 h-[3px] rounded-t-xl"
+        className="absolute top-0 right-0 left-0 h-[3px] rounded-t-3xl"
         style={{ backgroundColor: s.editorialAccent }}
         initial={isAnimated ? { scaleX: 0 } : undefined}
         animate={isAnimated && inView ? { scaleX: 1 } : undefined}
@@ -190,7 +214,7 @@ const LightCard = ({
       <div className="relative text-right">
         {/* Large icon in rounded square with subtle colored bg */}
         <motion.div
-          className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-colors duration-300"
+          className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-colors duration-300"
           style={{ backgroundColor: `${s.editorialAccent}12` }}
           whileHover={
             isAnimated

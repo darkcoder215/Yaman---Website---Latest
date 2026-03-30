@@ -306,15 +306,15 @@
 :is([data-theme="editorial"], [data-theme="editorial-animated"]) .card-premium {
   background: #FFFFFF;
   border: 1px solid hsl(40 14% 89%);
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04),
-              0 4px 16px -2px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03),
+              0 8px 24px -4px rgba(0, 0, 0, 0.04);
 }
 
 :is([data-theme="editorial"], [data-theme="editorial-animated"]) .card-premium:hover {
   border-color: hsl(40 14% 82%);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05),
-              0 8px 32px -4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04),
+              0 16px 48px -8px rgba(0, 0, 0, 0.06);
 }
 
 :is([data-theme="editorial"], [data-theme="editorial-animated"]) .glow-orb {
@@ -322,17 +322,15 @@
 }
 
 :is([data-theme="editorial"], [data-theme="editorial-animated"]) .section-divider {
-  background: hsl(40 14% 88%);
-  height: 1px;
-  width: 100%;
+  background: linear-gradient(90deg, transparent 0%, hsl(40 14% 84%) 20%, hsl(40 14% 80%) 50%, hsl(40 14% 84%) 80%, transparent 100%);
 }
 
 :is([data-theme="editorial"], [data-theme="editorial-animated"]) .section-divider::before {
-  display: none;
+  background: radial-gradient(ellipse at center, hsl(157 100% 38% / 0.5), hsl(157 100% 38% / 0.2), transparent);
 }
 
 :is([data-theme="editorial"], [data-theme="editorial-animated"]) .section-divider::after {
-  display: none;
+  background: radial-gradient(ellipse at center, hsl(157 100% 38% / 0.2), hsl(157 100% 38% / 0.05), transparent);
 }
 
 :is([data-theme="editorial"], [data-theme="editorial-animated"]) .shimmer::after {

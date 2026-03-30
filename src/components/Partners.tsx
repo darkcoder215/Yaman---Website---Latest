@@ -44,7 +44,7 @@ const Partners = () => {
     <section
       id="partners"
       className={`relative overflow-hidden ${
-        isLight ? "pt-16 pb-16 md:pt-24 md:pb-24" : "pt-14 pb-14 md:pt-20 md:pb-20"
+        isLight ? "pt-20 pb-20 md:pt-28 md:pb-28" : "pt-14 pb-14 md:pt-20 md:pb-20"
       }`}
       ref={ref}
     >
@@ -59,31 +59,56 @@ const Partners = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className={isLight ? "text-right mb-10 md:mb-16" : "text-center mb-10 md:mb-16"}
+          className="text-center mb-10 md:mb-16"
         >
+          {/* Tagline badge - light theme only */}
+          {isLight && (
+            <div className="flex items-center justify-center gap-2 mb-5">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00C17A]/10 border border-[#00C17A]/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00C17A]" />
+                <span className="text-xs font-semibold tracking-wide text-[#00C17A]">
+                  شركاؤنا — TRUSTED BY
+                </span>
+              </span>
+            </div>
+          )}
+
           <h2
             className={
               isLight
-                ? "text-4xl md:text-5xl font-black mb-4 text-[#2B2D3F]"
+                ? "text-4xl md:text-6xl font-black mb-5 text-[#2B2D3F]"
                 : "text-3xl md:text-5xl font-bold mb-5"
             }
           >
             عمل فريقنا مع
           </h2>
 
-          {isLight && (
-            <div className="w-full h-px bg-[#EFEDE2] mb-4" />
-          )}
-
           <p
-            className={`text-base md:text-lg ${
-              isLight ? "text-[#494C6B] max-w-2xl" : "text-muted-foreground max-w-2xl mx-auto"
+            className={`text-base md:text-lg max-w-2xl mx-auto ${
+              isLight ? "text-[#494C6B]" : "text-muted-foreground"
             }`}
           >
             {isLight
               ? "نفخر بالعمل جنبًا إلى جنب مع أبرز المؤسسات والجهات الرائدة في القطاعين الحكومي والخاص لبناء منتجات رقمية استثنائية"
               : "عملنا مع أبرز الجهات في القطاعين الحكومي والخاص"}
           </p>
+
+          {/* Count indicator - light theme only */}
+          {isLight && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6"
+            >
+              <span className="text-sm font-bold text-[#2B2D3F]">
+                15+
+              </span>
+              <span className="text-sm text-[#494C6B] mr-1.5">
+                {" "}شريك موثوق
+              </span>
+            </motion.div>
+          )}
         </motion.div>
 
         <div className="flex flex-wrap justify-center gap-3 md:gap-5 max-w-5xl mx-auto px-2 md:px-0">
@@ -104,7 +129,7 @@ const Partners = () => {
               } : undefined}
               className={`relative group ${
                 isLight
-                  ? "w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[90px] md:min-h-[110px] rounded-xl"
+                  ? "w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[100px] md:min-h-[120px] rounded-3xl"
                   : "w-[calc(50%-0.375rem)] sm:w-[calc(33.33%-0.875rem)] md:w-[calc(25%-0.9375rem)] lg:w-[calc(20%-1rem)] min-h-[85px] md:min-h-[110px] rounded-2xl"
               }`}
               style={{ animationDelay: `${i * 0.4}s` }}
@@ -124,7 +149,7 @@ const Partners = () => {
               {/* Card background */}
               <div className={`absolute inset-[1px] z-[1] ${
                 isLight
-                  ? "bg-white rounded-xl"
+                  ? "bg-white rounded-3xl"
                   : "bg-gradient-to-b from-card to-background rounded-2xl"
               }`} />
 
@@ -132,14 +157,14 @@ const Partners = () => {
               <div className={`absolute inset-0 transition-all duration-300 ${
                 isLight
                   ? isAnimated
-                    ? "rounded-xl border border-[#EFEDE2] group-hover:border-[#D0CEC3]"
-                    : "rounded-xl border border-[#EFEDE2]"
+                    ? "rounded-3xl border border-[#EFEDE2] group-hover:border-[#00C17A]/30 group-hover:shadow-lg group-hover:shadow-[#00C17A]/[0.06]"
+                    : "rounded-3xl border border-[#EFEDE2]"
                   : "rounded-2xl border border-border/30"
               }`} />
 
               {/* Content */}
               <div className={`relative z-[2] flex items-center justify-center h-full ${
-                isLight ? "p-4 md:p-6" : "p-3 md:p-6"
+                isLight ? "p-4 md:p-7" : "p-3 md:p-6"
               }`}>
                 <img
                   src={company.logo}

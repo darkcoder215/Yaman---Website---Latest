@@ -79,70 +79,132 @@ const About = () => {
     );
   }
 
-  // Light theme: techy professional Rimthan-style
+  // Light theme: luxury editorial redesign
   return (
-    <section id="about" className="pt-16 pb-16 md:pt-24 md:pb-24 relative overflow-hidden" ref={ref}>
+    <section id="about" className="pt-20 pb-20 md:pt-28 md:pb-28 relative overflow-hidden" ref={ref}>
       <div className="container relative z-10">
-        {/* Header area - left-aligned (RTL: text-right) */}
-        <motion.div
-          initial={isAnimated ? { opacity: 0, y: 30 } : undefined}
-          animate={isAnimated && inView ? { opacity: 1, y: 0 } : undefined}
-          transition={isAnimated ? { duration: 0.7, ease: [0.16, 1, 0.3, 1] } : undefined}
-          className="text-right mb-4"
-        >
-          <h2 className="text-4xl md:text-6xl font-black text-[#2B2D3F] leading-[1.15] tracking-tight">
-            عن لاندسكيب إكس
-          </h2>
-        </motion.div>
-
-        {/* Subtitle */}
+        {/* Tagline badge */}
         <motion.div
           initial={isAnimated ? { opacity: 0, y: 20 } : undefined}
           animate={isAnimated && inView ? { opacity: 1, y: 0 } : undefined}
-          transition={isAnimated ? { duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] } : undefined}
-          className="text-right mb-8 md:mb-10"
+          transition={isAnimated ? { duration: 0.6, ease: [0.16, 1, 0.3, 1] } : undefined}
+          className="flex justify-center mb-6"
         >
-          <p className="text-base md:text-lg text-[#494C6B] max-w-2xl mr-0 ml-auto leading-relaxed">
-            نمزج بين المنهجيات المتعددة بهدف استكشاف وصناعة وحماية القيمة لعملاء ومستثمري لاندسكيب إكس
-          </p>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#EFEDE2] bg-white/60 backdrop-blur-sm text-xs font-semibold tracking-[0.15em] text-[#494C6B] uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00C17A]" />
+            عن الاستوديو
+          </span>
         </motion.div>
 
-        {/* Thin hairline divider */}
+        {/* Main heading */}
         <motion.div
-          initial={isAnimated ? { opacity: 0, scaleX: 0 } : undefined}
-          animate={isAnimated && inView ? { opacity: 1, scaleX: 1 } : undefined}
-          transition={isAnimated ? { duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] } : undefined}
-          style={isAnimated ? { transformOrigin: "right" } : undefined}
-          className="h-px bg-[#EFEDE2] mb-12 md:mb-16"
-        />
+          initial={isAnimated ? { opacity: 0, y: 40 } : undefined}
+          animate={isAnimated && inView ? { opacity: 1, y: 0 } : undefined}
+          transition={isAnimated ? { duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] } : undefined}
+          className="text-center mb-8 md:mb-10"
+        >
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#2B2D3F] mb-6 leading-[1.1] tracking-tight">
+            نبني{" "}
+            <span className="relative inline-block">
+              <span className="relative z-10">المستقبل</span>
+              <motion.span
+                className="absolute bottom-2 md:bottom-3 right-0 left-0 h-3 md:h-5 bg-[#00C17A]/25 -z-0 rounded-sm"
+                initial={isAnimated ? { scaleX: 0 } : undefined}
+                animate={isAnimated && inView ? { scaleX: 1 } : undefined}
+                transition={isAnimated ? { delay: 0.5, duration: 0.7, ease: [0.22, 1, 0.36, 1] } : undefined}
+                style={isAnimated ? { transformOrigin: "right" } : undefined}
+              />
+            </span>
+            {" "}مع{" "}
+            <span className="relative inline-block">
+              <span className="relative z-10">لاندسكيب إكس</span>
+              <motion.span
+                className="absolute bottom-2 md:bottom-3 right-0 left-0 h-3 md:h-5 bg-[#0072F9]/20 -z-0 rounded-sm"
+                initial={isAnimated ? { scaleX: 0 } : undefined}
+                animate={isAnimated && inView ? { scaleX: 1 } : undefined}
+                transition={isAnimated ? { delay: 0.7, duration: 0.7, ease: [0.22, 1, 0.36, 1] } : undefined}
+                style={isAnimated ? { transformOrigin: "right" } : undefined}
+              />
+            </span>
+          </h2>
+        </motion.div>
 
-        {/* Stats dashboard strip */}
+        {/* Mission paragraph */}
         <motion.div
           initial={isAnimated ? { opacity: 0, y: 30 } : undefined}
           animate={isAnimated && inView ? { opacity: 1, y: 0 } : undefined}
-          transition={isAnimated ? { duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] } : undefined}
-          className="bg-white/70 backdrop-blur-sm border border-[#EFEDE2] rounded-xl overflow-hidden"
+          transition={isAnimated ? { duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] } : undefined}
+          className="text-center mb-16 md:mb-24"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3">
-            {stats.map((stat, i) => (
+          <p className="text-lg md:text-xl max-w-3xl mx-auto leading-[1.9] text-[#494C6B] font-light">
+            نمزج بين المنهجيات المتعددة بهدف استكشاف وصناعة وحماية القيمة لعملاء ومستثمري لاندسكيب إكس.
+            نؤمن بأن الابتكار الحقيقي يبدأ من فهم عميق للسوق وبناء حلول مستدامة تُحدث أثراً ملموساً.
+          </p>
+        </motion.div>
+
+        {/* Asymmetric editorial stats layout */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-stretch">
+          {/* Featured large stat - left side */}
+          <motion.div
+            initial={isAnimated ? { opacity: 0, y: 40, scale: 0.97 } : undefined}
+            animate={isAnimated && inView ? { opacity: 1, y: 0, scale: 1 } : undefined}
+            transition={isAnimated ? { delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] } : undefined}
+            whileHover={isAnimated ? { y: -6, transition: { duration: 0.35 } } : undefined}
+            className="md:col-span-7 relative group"
+          >
+            <div className="relative bg-white/70 backdrop-blur-sm border border-[#EFEDE2] rounded-2xl p-10 md:p-14 overflow-hidden h-full flex flex-col justify-center">
+              <div className="relative">
+                <div className="relative inline-block mb-6">
+                  <span className="text-7xl md:text-8xl lg:text-9xl font-black text-[#2B2D3F] relative z-10 leading-none">
+                    <AnimatedNumber target={stats[0].number} suffix={stats[0].suffix} prefix={stats[0].prefix} />
+                  </span>
+                  <motion.span
+                    className="absolute bottom-2 right-0 left-0 h-4 md:h-6 bg-[#B5E8BE] -z-0 rounded-sm"
+                    initial={isAnimated ? { scaleX: 0 } : undefined}
+                    animate={isAnimated && inView ? { scaleX: 1 } : undefined}
+                    transition={isAnimated ? { delay: 0.7, duration: 0.6, ease: [0.22, 1, 0.36, 1] } : undefined}
+                    style={isAnimated ? { transformOrigin: "right" } : undefined}
+                  />
+                </div>
+                <h3 className="text-xl md:text-2xl font-bold text-[#2B2D3F] mb-3">{stats[0].label}</h3>
+                <p className="text-base md:text-lg text-[#494C6B] leading-relaxed max-w-md">{stats[0].desc}</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Two smaller stats stacked - right side */}
+          <div className="md:col-span-5 flex flex-col gap-6 md:gap-8">
+            {stats.slice(1).map((stat, i) => (
               <motion.div
                 key={i}
-                initial={isAnimated ? { opacity: 0, y: 20 } : undefined}
-                animate={isAnimated && inView ? { opacity: 1, y: 0 } : undefined}
-                transition={isAnimated ? { delay: 0.4 + i * 0.12, duration: 0.6, ease: [0.16, 1, 0.3, 1] } : undefined}
-                className={`p-8 md:p-10 text-right ${
-                  i < stats.length - 1 ? "border-b md:border-b-0 md:border-l border-[#EFEDE2]" : ""
-                }`}
+                initial={isAnimated ? { opacity: 0, y: 30, scale: 0.97 } : undefined}
+                animate={isAnimated && inView ? { opacity: 1, y: 0, scale: 1 } : undefined}
+                transition={isAnimated ? { delay: 0.55 + i * 0.15, duration: 0.7, ease: [0.16, 1, 0.3, 1] } : undefined}
+                whileHover={isAnimated ? { y: -4, transition: { duration: 0.35 } } : undefined}
+                className="relative group flex-1"
               >
-                <div className="text-5xl font-black text-[#2B2D3F] mb-3 leading-none">
-                  <AnimatedNumber target={stat.number} suffix={stat.suffix} prefix={stat.prefix} />
+                <div className="relative bg-white/70 backdrop-blur-sm border border-[#EFEDE2] rounded-2xl p-8 md:p-10 overflow-hidden h-full flex flex-col justify-center">
+                  <div className="relative">
+                    <div className="relative inline-block mb-4">
+                      <span className="text-5xl md:text-6xl font-black text-[#2B2D3F] relative z-10 leading-none">
+                        <AnimatedNumber target={stat.number} suffix={stat.suffix} prefix={stat.prefix} />
+                      </span>
+                      <motion.span
+                        className="absolute bottom-1 right-0 left-0 h-3 md:h-4 -z-0 rounded-sm"
+                        initial={isAnimated ? { scaleX: 0 } : undefined}
+                        animate={isAnimated && inView ? { scaleX: 1 } : undefined}
+                        transition={isAnimated ? { delay: 0.8 + i * 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] } : undefined}
+                        style={{ backgroundColor: stat.highlightColor, transformOrigin: isAnimated ? "right" : undefined }}
+                      />
+                    </div>
+                    <h3 className="text-lg md:text-xl font-bold text-[#2B2D3F] mb-2">{stat.label}</h3>
+                    <p className="text-sm md:text-base text-[#494C6B] leading-relaxed">{stat.desc}</p>
+                  </div>
                 </div>
-                <h3 className="text-base md:text-lg font-bold text-[#2B2D3F] mb-1.5">{stat.label}</h3>
-                <p className="text-sm text-[#494C6B] leading-relaxed">{stat.desc}</p>
               </motion.div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

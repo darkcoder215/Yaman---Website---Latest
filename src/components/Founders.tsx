@@ -61,7 +61,7 @@ const Founders = () => {
     <section
       id="founders"
       className={`relative overflow-hidden ${
-        isLight ? "pt-16 pb-16 md:pt-24 md:pb-24" : "pt-14 pb-14 md:pt-20 md:pb-20"
+        isLight ? "pt-20 pb-20 md:pt-28 md:pb-28" : "pt-14 pb-14 md:pt-20 md:pb-20"
       }`}
       ref={ref}
     >
@@ -70,8 +70,8 @@ const Founders = () => {
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-secondary glow-orb animate-pulse-soft" />
       )}
 
-      {/* Animated floating accent shapes — dark theme only */}
-      {isAnimated && !isLight && (
+      {/* Animated floating accent shapes */}
+      {isAnimated && (
         <>
           <motion.div
             className="absolute right-[8%] top-[15%] w-12 h-12 rounded-full border-2 border-[#FFBC0A]/20"
@@ -90,24 +90,31 @@ const Founders = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className={isLight ? "text-right mb-16" : "text-center mb-16"}
+          className="text-center mb-16"
         >
+          {/* Tagline badge — light only */}
+          {isLight && (
+            <div className="flex items-center justify-center gap-2 mb-5">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EFEDE2] text-xs font-semibold tracking-wide text-[#494C6B]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00C17A] inline-block" />
+                فريقنا &mdash; FOUNDING TEAM
+              </span>
+            </div>
+          )}
+
           <h2
             className={
               isLight
-                ? "text-4xl md:text-5xl font-black text-[#2B2D3F] mb-4 leading-tight"
+                ? "text-4xl md:text-6xl font-black text-[#2B2D3F] mb-4 leading-tight"
                 : "text-3xl md:text-5xl font-bold mb-5"
             }
           >
             فريق التأسيس
           </h2>
-          {isLight && (
-            <div className="w-full h-px bg-[#EFEDE2] mb-4" />
-          )}
           <p
             className={
               isLight
-                ? "text-base md:text-lg text-[#494C6B] max-w-xl"
+                ? "text-base md:text-lg text-[#494C6B] max-w-xl mx-auto"
                 : "text-base md:text-lg text-muted-foreground"
             }
           >
@@ -132,12 +139,12 @@ const Founders = () => {
                   whileHover={isAnimated ? { scale: 1.06, y: -4 } : { scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   className={`relative flex-1 max-w-[250px] overflow-hidden focus:outline-none ${
-                    isLight ? "rounded-xl" : "rounded-2xl"
+                    isLight ? "rounded-3xl" : "rounded-2xl"
                   } ${
                     isLight
                       ? isActive
-                        ? "shadow-md"
-                        : "opacity-50"
+                        ? "shadow-xl shadow-[#00C17A]/15"
+                        : "opacity-60"
                       : ""
                   }`}
                   style={{ aspectRatio: "3/4" }}
@@ -147,7 +154,7 @@ const Founders = () => {
                     src={founder.image}
                     alt={founder.name}
                     className={`w-full h-full object-cover transition-all duration-500 ${
-                      isLight ? "rounded-xl" : ""
+                      isLight ? "rounded-3xl" : ""
                     }`}
                     style={{
                       filter: isActive
@@ -160,7 +167,7 @@ const Founders = () => {
                   {/* gradient overlay */}
                   <div
                     className={`absolute bottom-0 inset-x-0 h-2/5 bg-gradient-to-t from-black/80 to-transparent ${
-                      isLight ? "rounded-b-xl" : ""
+                      isLight ? "rounded-b-3xl" : ""
                     }`}
                   />
                   {/* name + role on photo */}
@@ -186,7 +193,7 @@ const Founders = () => {
                       layoutId="active-ring"
                       className={`absolute inset-0 pointer-events-none ${
                         isLight
-                          ? "rounded-xl border-[3px] border-[#00C17A]"
+                          ? "rounded-3xl border-[5px] border-[#00C17A] shadow-lg shadow-[#00C17A]/20"
                           : "rounded-2xl border-[6px] border-primary"
                       }`}
                       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -194,7 +201,7 @@ const Founders = () => {
                   )}
                   {/* Inactive subtle border — light only */}
                   {isLight && !isActive && (
-                    <div className="absolute inset-0 rounded-xl border border-[#EFEDE2] pointer-events-none" />
+                    <div className="absolute inset-0 rounded-3xl border border-[#EFEDE2] pointer-events-none" />
                   )}
 
                   {/* Animated shimmer on hover — animated only */}
@@ -222,11 +229,11 @@ const Founders = () => {
               whileTap={isAnimated ? { scale: 0.9 } : undefined}
               className={`absolute left-0 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-20 ${
                 isLight
-                  ? "w-11 h-11 rounded-xl bg-white border border-[#EFEDE2] text-[#2B2D3F] hover:border-[#D0CEC3]"
+                  ? "w-12 h-12 rounded-full bg-white border border-[#EFEDE2] text-[#2B2D3F] hover:bg-[#F7F4EE] shadow-md hover:shadow-lg"
                   : "w-10 h-10 rounded-full glass text-foreground hover:bg-muted/60"
               }`}
             >
-              <ChevronLeft className={isLight ? "w-5 h-5" : "w-5 h-5"} />
+              <ChevronLeft className={isLight ? "w-6 h-6" : "w-5 h-5"} />
             </motion.button>
 
             {/* Arrow right */}
@@ -236,11 +243,11 @@ const Founders = () => {
               whileTap={isAnimated ? { scale: 0.9 } : undefined}
               className={`absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors z-20 ${
                 isLight
-                  ? "w-11 h-11 rounded-xl bg-white border border-[#EFEDE2] text-[#2B2D3F] hover:border-[#D0CEC3]"
+                  ? "w-12 h-12 rounded-full bg-white border border-[#EFEDE2] text-[#2B2D3F] hover:bg-[#F7F4EE] shadow-md hover:shadow-lg"
                   : "w-10 h-10 rounded-full glass text-foreground hover:bg-muted/60"
               }`}
             >
-              <ChevronRight className={isLight ? "w-5 h-5" : "w-5 h-5"} />
+              <ChevronRight className={isLight ? "w-6 h-6" : "w-5 h-5"} />
             </motion.button>
           </div>
 
@@ -253,10 +260,10 @@ const Founders = () => {
                 whileHover={isAnimated ? { scale: 1.3 } : undefined}
                 className={`h-2.5 rounded-full transition-all duration-300 ${
                   i === active
-                    ? `w-6 ${isLight ? "bg-[#00C17A]" : "bg-primary"}`
+                    ? `w-7 ${isLight ? "bg-[#00C17A]" : "bg-primary"}`
                     : `w-2.5 ${
                         isLight
-                          ? "bg-[#EFEDE2] hover:bg-[#D0CEC3]"
+                          ? "bg-[#EFEDE2] hover:bg-[#D1C4E2]"
                           : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                       }`
                 }`}
@@ -276,24 +283,24 @@ const Founders = () => {
             transition={{ duration: isAnimated ? 0.5 : 0.35, ease: "easeOut" }}
             className={
               isLight
-                ? "mt-10 max-w-2xl mx-auto text-right"
+                ? "mt-10 max-w-2xl mx-auto card-premium bg-white rounded-3xl border border-[#EFEDE2] px-8 py-8 md:px-10 md:py-10 shadow-sm text-center"
                 : "text-center mt-8 max-w-xl mx-auto"
             }
           >
             {isLight && (
               <>
-                <h3 className="text-xl font-bold text-[#2B2D3F] mb-1">
+                <h3 className="text-2xl md:text-3xl font-black text-[#2B2D3F] mb-2">
                   {founders[active].name}
                 </h3>
-                <p className="text-sm text-[#494C6B]/60 mb-4">
+                <span className="inline-block px-4 py-1 rounded-full bg-[#00C17A]/10 text-[#00C17A] text-xs font-bold tracking-wide mb-5">
                   {founders[active].role}
-                </p>
+                </span>
               </>
             )}
             <p
               className={`text-sm md:text-base leading-loose ${
                 isLight
-                  ? "text-[#494C6B] [&_strong]:text-[#2B2D3F] [&_strong]:font-bold"
+                  ? "text-[#494C6B] [&_strong]:text-[#00C17A] [&_strong]:font-bold"
                   : "text-foreground/80 [&_strong]:text-primary [&_strong]:font-bold"
               }`}
               dangerouslySetInnerHTML={{ __html: founders[active].bio }}

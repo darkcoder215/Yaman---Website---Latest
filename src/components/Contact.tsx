@@ -43,7 +43,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className={isLight ? "pt-16 pb-16 md:pt-24 md:pb-24 relative overflow-hidden" : "pt-14 pb-14 md:pt-20 md:pb-20 relative"}
+      className={isLight ? "pt-20 pb-20 md:pt-28 md:pb-28 relative overflow-hidden bg-[#F7F4EE]" : "pt-14 pb-14 md:pt-20 md:pb-20 relative"}
       ref={ref}
     >
       {!isLight && (
@@ -54,8 +54,8 @@ const Contact = () => {
       )}
 
 
-      {/* Animated decorative elements — dark theme only */}
-      {isAnimated && !isLight && (
+      {/* Animated decorative elements */}
+      {isAnimated && (
         <>
           <motion.div
             className="absolute right-[6%] top-[10%] w-20 h-20 rounded-full border border-[#00C17A]/10"
@@ -73,18 +73,25 @@ const Contact = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className={isLight ? "text-right mb-14" : "text-center mb-14"}
+          className={isLight ? "text-center mb-16" : "text-center mb-14"}
         >
+          {/* Tagline badge — light only */}
+          {isLight && (
+            <span className="inline-block mb-5 px-5 py-2 rounded-full border border-[#EFEDE2] bg-white/60 text-xs font-semibold tracking-widest text-[#494C6B] uppercase">
+              تواصل &mdash; GET IN TOUCH
+            </span>
+          )}
+
           <h2 className={
             isLight
-              ? "text-4xl md:text-5xl font-black text-[#2B2D3F] mb-4 leading-tight"
+              ? "text-4xl md:text-6xl font-black text-[#2B2D3F] mb-5 leading-tight"
               : "text-3xl md:text-5xl font-bold mb-5"
           }>
             {isLight ? "يسعدنا تواصلك" : "يسعدنا تواصلك 🤝"}
           </h2>
 
           {isLight && (
-            <p className="text-[#494C6B] text-base md:text-lg max-w-xl leading-relaxed">
+            <p className="text-[#494C6B] text-base md:text-lg max-w-xl mx-auto leading-relaxed">
               أخبرنا عن مشروعك وسنعود إليك خلال يوم عمل واحد
             </p>
           )}
@@ -104,7 +111,7 @@ const Contact = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 className={
                   isLight
-                    ? "bg-white rounded-xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px] border border-[#EFEDE2]"
+                    ? "bg-white rounded-3xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px] border border-[#EFEDE2]"
                     : "card-premium p-10 md:p-14 text-center flex flex-col items-center justify-center min-h-[400px]"
                 }
               >
@@ -127,7 +134,7 @@ const Contact = () => {
                   variant="outline"
                   className={
                     isLight
-                      ? "mt-8 rounded-xl px-8 py-3 border-[#EFEDE2] text-[#2B2D3F] font-bold hover:bg-[#F7F4EE]"
+                      ? "mt-8 rounded-full px-8 py-3 border-[#EFEDE2] text-[#2B2D3F] font-bold hover:bg-[#F7F4EE]"
                       : "mt-8"
                   }
                   onClick={() => { setSubmitted(false); setForm({ name: "", email: "", phone: "", service: "", message: "" }); }}
@@ -140,7 +147,7 @@ const Contact = () => {
                 onSubmit={handleSubmit}
                 className={
                   isLight
-                    ? "bg-white rounded-xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-8 md:p-10 space-y-6 border border-[#EFEDE2]"
+                    ? "bg-white rounded-3xl shadow-[0_2px_24px_rgba(0,0,0,0.06)] p-8 md:p-12 space-y-6 border border-[#EFEDE2]"
                     : "card-premium p-6 md:p-8 space-y-5"
                 }
               >
@@ -156,7 +163,7 @@ const Contact = () => {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className={isLight
-                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-lg"
+                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-xl"
                         : "bg-muted/50 border-border/50 focus:border-primary/50"
                       }
                     />
@@ -174,7 +181,7 @@ const Contact = () => {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className={`text-left ${isLight
-                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-lg"
+                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-xl"
                         : "bg-muted/50 border-border/50 focus:border-primary/50"
                       }`}
                     />
@@ -195,7 +202,7 @@ const Contact = () => {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       className={`text-left ${isLight
-                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-lg"
+                        ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 h-12 text-base rounded-xl"
                         : "bg-muted/50 border-border/50 focus:border-primary/50"
                       }`}
                     />
@@ -209,7 +216,7 @@ const Contact = () => {
                     <select
                       value={form.service}
                       onChange={(e) => setForm({ ...form, service: e.target.value })}
-                      className={`flex h-12 w-full rounded-lg border px-3 py-2 text-base text-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                      className={`flex h-12 w-full rounded-xl border px-3 py-2 text-base text-foreground focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                         isLight
                           ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 focus:ring-[#00C17A]/20 focus:ring-offset-white"
                           : "bg-muted/50 border-border/50 focus:border-primary/50 focus:ring-ring focus:ring-offset-background"
@@ -235,7 +242,7 @@ const Contact = () => {
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className={`resize-none ${isLight
-                      ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 text-base rounded-lg"
+                      ? "bg-white border-[#EFEDE2] focus:border-[#00C17A]/50 text-base rounded-xl"
                       : "bg-muted/50 border-border/50 focus:border-primary/50"
                     }`}
                   />
@@ -250,7 +257,7 @@ const Contact = () => {
                     disabled={loading}
                     className={`w-full h-14 font-bold text-base transition-opacity ${
                       isLight
-                        ? "bg-[#000000] text-white hover:bg-[#2B2D3F] rounded-xl px-10 text-lg"
+                        ? "bg-[#000000] text-white hover:bg-[#2B2D3F] rounded-full px-10 text-lg"
                         : "bg-gradient-brand text-primary-foreground hover:opacity-90"
                     }`}
                   >
@@ -299,7 +306,7 @@ const Contact = () => {
                 whileHover={isAnimated ? { y: -4, transition: { duration: 0.3 } } : undefined}
                 className={
                   isLight
-                    ? "bg-white rounded-xl shadow-[0_2px_16px_rgba(0,0,0,0.05)] border border-[#EFEDE2] p-6 flex items-center gap-5 group block"
+                    ? "bg-white rounded-2xl shadow-[0_2px_16px_rgba(0,0,0,0.05)] border border-[#EFEDE2] p-6 flex items-center gap-5 group block"
                     : "card-premium p-5 flex items-center gap-4 group block"
                 }
               >
@@ -323,7 +330,7 @@ const Contact = () => {
             <motion.div
               className={
                 isLight
-                  ? "bg-white rounded-xl shadow-[0_2px_16px_rgba(0,0,0,0.05)] border border-[#EFEDE2] p-6"
+                  ? "bg-white rounded-2xl shadow-[0_2px_16px_rgba(0,0,0,0.05)] border border-[#EFEDE2] p-6"
                   : "card-premium p-5"
               }
               whileHover={isAnimated ? { y: -4, transition: { duration: 0.3 } } : undefined}
